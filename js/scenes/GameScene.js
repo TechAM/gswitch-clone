@@ -1,0 +1,63 @@
+import * as CST from "../CST.js"
+
+export default class GameScene extends Phaser.Scene{
+    constructor(){
+        super({key:CST.SCENES.GAME})
+    }
+
+    preload(){
+    }
+
+    create(){
+        //map
+        this.map = this.make.tilemap({key:"map"}) //key is referencing the tilemapTiledJSON loaded in preload
+        let tileset = this.map.addTilesetImage("platform") //there is a tileset called "platform" in the Tiled editor
+        this.platformLayer = this.map.createDynamicLayer("world", tileset, 0, 0) //there is a layer called "world" in the Tiled editor
+        this.platformLayer.setCollisionByExclusion([-1])
+
+
+        //player
+        this.player = this.physics.add.sprite(CST.VIEW_WIDTH/5, CST.VIEW_HEIGHT/2, "man")
+        
+        this.player.setVelocityX(CST.X_VEL)
+        this.anims.create({
+			key: "flap",
+			frames: this.anims.generateFrameNumbers("man", {start: 0, end: 3}),
+			frameRate: 10,
+			repeat: -1,
+        });
+        this.player.anims.play("flap", true);
+        this.physics.add.collider(this.platformLayer, this.player, (player, tile)=>{
+            if(tile.properties.flipper){
+                this.changeDirection(player)
+            }
+        })
+        
+        //input
+		this.cursors = this.input.keyboard.createCursorKeys();
+
+        //camera
+        this.cameras.main.setBackgroundColor('#ccccff');
+        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
+        this.cameras.main.setDeadzone(this.player.width, CST.VIEW_HEIGHT)
+        this.cameras.main.startFollow(this.player)
+    }
+
+    update(){
+        this.cursors.space.onUp = e=>this.gSwitch(e)
+    }
+
+    gSwitch(e){
+        this.player.setVelocityY(0)
+        this.player.flipY = !this.player.flipY
+        this.physics.world.gravity.y*=-1
+    }
+
+
+    changeDirection(player){
+        this.physics.world.gravity.y = 0
+        this.physics.world.gravity.x = -CST.G
+    }
+
+
+}
