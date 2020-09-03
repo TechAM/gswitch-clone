@@ -8,6 +8,7 @@ export default class MenuScene extends Phaser.Scene{
 
     preload(){
         this.load.spritesheet("man", "assets/spritesNew/man.png", {frameWidth: 100, frameHeight: 100})
+        this.load.spritesheet("collectible1", "assets/spritesNew/chicken.png", {frameWidth: 64, frameHeight: 64})
         this.load.spritesheet("platform", "assets/tilesNew/platformTiles.png", {frameWidth:32, frameHeight:32})
         this.load.tilemapTiledJSON("map", "assets/tilesNew/tilemap.json")
     }

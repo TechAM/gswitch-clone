@@ -50,10 +50,10 @@
   </object>
  </objectgroup>
  <objectgroup id="6" name="collectibles">
-  <object id="20" name="collectible" x="284" y="180">
+  <object id="20" name="collectible1" x="284" y="180">
    <point/>
   </object>
-  <object id="21" name="collectible" x="276" y="480">
+  <object id="21" name="collectible1" x="276" y="480">
    <point/>
   </object>
  </objectgroup>

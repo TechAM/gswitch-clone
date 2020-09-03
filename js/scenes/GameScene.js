@@ -33,6 +33,16 @@ export default class GameScene extends Phaser.Scene{
             }
         })
         
+        //collectibles
+        this.collectibles = this.map.createFromObjects("collectibles", "collectible1", {key:"collectible1"})
+        this.physics.world.enable(this.collectibles)
+        for(let collectible of this.collectibles){
+            collectible.body.setAllowGravity(false)
+        }
+        this.physics.add.overlap(this.collectibles, this.player, (collectible, player)=>{
+            collectible.destroy(true)
+        })
+
         //input
 		this.cursors = this.input.keyboard.createCursorKeys();
 
