@@ -6,5 +6,5 @@ export const SCENES = {
     GAME: "GameScene"
 }
 
-export const X_VEL = 160
+export const X_VEL = 250
 export const G = 500
