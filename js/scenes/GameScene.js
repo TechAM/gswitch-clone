@@ -14,8 +14,7 @@ export default class GameScene extends Phaser.Scene{
         this.map = this.make.tilemap({key:"map"}) //key is referencing the tilemapTiledJSON loaded in preload
         let tileset = this.map.addTilesetImage("platform") //there is a tileset called "platform" in the Tiled editor
         this.platformLayer = this.map.createDynamicLayer("world", tileset, 0, 0) //there is a layer called "world" in the Tiled editor
-        this.platformLayer.setCollisionByExclusion([-1, ])
-
+        this.platformLayer.setCollisionByExclusion([-1, 4])
 
         //player
         this.player = this.physics.add.sprite(CST.VIEW_WIDTH/5, CST.VIEW_HEIGHT/2, "man")
@@ -28,14 +27,17 @@ export default class GameScene extends Phaser.Scene{
 			repeat: -1,
         });
         this.player.anims.play("flap", true);
+
         this.physics.add.collider(this.platformLayer, this.player, (player, tile)=>{
-            this.collision = true;
             if(tile.properties.flipper){
                 this.changeDirection(player)
             }
         })
-
-        // this.physics.add.overlap(this.finishTiles, this.player(player, tile)=>{})
+        this.physics.add.overlap(this.platformLayer, this.player, (player, tile)=>{
+            if(tile.index == 4){
+                console.log("winner boi")
+            }
+        })
         
         //collectibles
         this.collectibles = this.map.createFromObjects("collectibles", "collectible1", {key:"collectible1"})
