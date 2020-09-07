@@ -16,7 +16,7 @@ export default class MenuScene extends Phaser.Scene{
     create(){
 		this.startButton = new TXT.Button(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/2, "START");
 		this.startButton.onClick(()=>{
-            this.scene.start(CST.SCENES.GAME);			
+            this.scene.start(CST.SCENES.GAME, {numPlayers: 1});		
 		});
     }
 
