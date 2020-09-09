@@ -8,7 +8,7 @@ export default class GameScene extends Phaser.Scene{
     }
 
     init(data){
-        console.log(data.numPlayers)
+        this.numPlayers = data.numPlayers
     }
 
     preload(){
@@ -21,21 +21,6 @@ export default class GameScene extends Phaser.Scene{
         let tileset = this.map.addTilesetImage("platform") //there is a tileset called "platform" in the Tiled editor
         this.platformLayer = this.map.createDynamicLayer("world", tileset, 0, 0) //there is a layer called "world" in the Tiled editor
         this.platformLayer.setCollisionByExclusion([-1, 4])
-
-        //players
-        this.player = new Player(this, CST.VIEW_WIDTH/5, CST.VIEW_HEIGHT/2);
-
-        // this.input.on('pointerdown', e=>this.gSwitch());
-
-        this.anims.create({
-			key: "run",
-			frames: this.anims.generateFrameNumbers("man", {start: 0, end: 3}),
-			frameRate: 10,
-			repeat: -1,
-        });
-        this.player.animate("run")
-        this.player.addPlatformCollider(this.platformLayer)
-        this.player.addFinishOverlap(this.platformLayer)
         
         //collectibles
         this.collectibles = this.map.createFromObjects("collectibles", "collectible1", {key:"collectible1"})
@@ -44,20 +29,45 @@ export default class GameScene extends Phaser.Scene{
             collectible.body.setAllowGravity(false)
         }
 
-        this.player.addCollectiblesOverlap(this.collectibles)
+        //players
+        this.players = []
+        for(let i=1; i<=this.numPlayers; i++){
+            this.players.push(new Player(this, CST.VIEW_WIDTH/5, i*CST.VIEW_HEIGHT/(this.numPlayers+1)))
+        }
 
-        //input
-		this.cursors = this.input.keyboard.createCursorKeys();
+        this.anims.create({
+			key: "run",
+			frames: this.anims.generateFrameNumbers("man", {start: 0, end: 3}),
+			frameRate: 10,
+			repeat: -1,
+        });
+    
+        for(let player of this.players){
+            player.animate("run")
+            player.addPlatformCollider(this.platformLayer)
+            player.addFinishOverlap(this.platformLayer)
+            player.addCollectiblesOverlap(this.collectibles)
+        }
+    
 
         //camera
         this.cameras.main.setBackgroundColor('#ccccff');
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
-        this.cameras.main.setDeadzone(this.player.sprite.width, CST.VIEW_HEIGHT)
-        this.cameras.main.startFollow(this.player.sprite, false, 1, 1, -200, 0)
+        this.cameras.main.setDeadzone(this.players[0].sprite.width, CST.VIEW_HEIGHT)
+        this.cameras.main.startFollow(this.players[0].sprite, false, 1, 1, -200, 0)
+        
+        
+        //input
+        let keys = ['SPACE', 'Q']
+        let keyObj = this.input.keyboard.addKeys(keys.join(', '));  // Get key object
+        for(let i=0; i<this.numPlayers; i++){
+            keyObj[keys[i]].on('up', e=>this.players[i].gSwitch());
+        }
     }
 
     update(){
-        this.player.update()
-        this.cursors.space.onUp = e=>this.player.gSwitch()
+        for(let player of this.players){
+            player.update()
+        }
     }
 }
