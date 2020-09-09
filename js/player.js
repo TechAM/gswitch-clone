@@ -1,12 +1,16 @@
 import * as CST from './CST.js'
 
 export default class Player {
+
     constructor (scene, x, y) {
         this.scene = scene
         this.sprite = scene.physics.add.sprite(x, y, "man")
         this.sprite.body.gravity.y = CST.G
-        this.sprite.setVelocityX(CST.X_VEL)        
+        this.sprite.setVelocityX(CST.X_VEL) 
+        this.id = Player.count
+        Player.count += 1 
     }
+
 
     animate(key){
         this.sprite.anims.play(key, true)
@@ -17,7 +21,7 @@ export default class Player {
     addFinishOverlap(platformlayer){
         this.scene.physics.add.overlap(platformlayer, this.sprite, (player, tile)=>{
             if(tile.index == 4){
-                console.log("winner boi")
+                console.log(`Player ${this.id+1} finishes`)
             }
         })
     }
@@ -30,7 +34,6 @@ export default class Player {
 		this.scene.switchSound.play();
         this.sprite.flipY = !this.sprite.flipY
         this.sprite.body.gravity.y*=-1
-        this.sprite.tint = Math.random()*0xffffff
     }
 
 	update() {

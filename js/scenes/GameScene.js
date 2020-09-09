@@ -31,6 +31,7 @@ export default class GameScene extends Phaser.Scene{
         }
 
         //players
+        Player.count = 0
         this.players = []
         for(let i=1; i<=this.numPlayers; i++){
             let newPlayer = new Player(this, CST.VIEW_WIDTH/5, i*CST.VIEW_HEIGHT/(this.numPlayers+1))
