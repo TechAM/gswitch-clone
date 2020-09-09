@@ -74,6 +74,7 @@ export default class GameScene extends Phaser.Scene{
             player.update()
         }
 
+        //camera follows the  player at the front
         let furthest = this.players.reduce((prevPlayer, currentPlayer, i)=>{
             if(currentPlayer.sprite.x >= prevPlayer.sprite.x){
                 return currentPlayer
@@ -83,5 +84,15 @@ export default class GameScene extends Phaser.Scene{
         })
         this.cameras.main.setDeadzone(furthest.sprite.width, CST.VIEW_HEIGHT)
         this.cameras.main.startFollow(furthest.sprite, false, 1, 1, -200, 0)
+
+        //if player is of the screen, destroy the sprite and remove from scene
+        for(let player of this.players){
+            if(player.sprite.x-this.cameras.main.scrollX<=-50){
+                console.log(`Player ${player.id+1} is dead`)
+                player.destroy()
+                let index = this.players.indexOf(player)
+                this.players.splice(index, 1)
+            }
+        }
     }
 }

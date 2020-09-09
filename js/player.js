@@ -41,4 +41,8 @@ export default class Player {
             this.sprite.setVelocityX(CST.X_VEL)        
         }
     }
+
+    destroy(){
+        this.sprite.destroy()
+    }
 }
