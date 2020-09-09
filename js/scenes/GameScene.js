@@ -1,4 +1,5 @@
 import * as CST from "../CST.js"
+import Player from '../player.js'
 
 export default class GameScene extends Phaser.Scene{
 
@@ -7,7 +8,7 @@ export default class GameScene extends Phaser.Scene{
     }
 
     init(data){
-        this.numPlayers = data.numPlayers
+        console.log(data.numPlayers)
     }
 
     preload(){
@@ -21,28 +22,20 @@ export default class GameScene extends Phaser.Scene{
         this.platformLayer = this.map.createDynamicLayer("world", tileset, 0, 0) //there is a layer called "world" in the Tiled editor
         this.platformLayer.setCollisionByExclusion([-1, 4])
 
-        //player
-        this.player = this.physics.add.sprite(CST.VIEW_WIDTH/5, CST.VIEW_HEIGHT/2, "man")
-        
-        this.player.setVelocityX(CST.X_VEL)
+        //players
+        this.player = new Player(this, CST.VIEW_WIDTH/5, CST.VIEW_HEIGHT/2);
+
+        // this.input.on('pointerdown', e=>this.gSwitch());
+
         this.anims.create({
-			key: "flap",
+			key: "run",
 			frames: this.anims.generateFrameNumbers("man", {start: 0, end: 3}),
 			frameRate: 10,
 			repeat: -1,
         });
-        this.player.anims.play("flap", true);
-
-        this.physics.add.collider(this.platformLayer, this.player, (player, tile)=>{
-            if(tile.properties.flipper){
-                this.changeDirection(player)
-            }
-        })
-        this.physics.add.overlap(this.platformLayer, this.player, (player, tile)=>{
-            if(tile.index == 4){
-                console.log("winner boi")
-            }
-        })
+        this.player.animate("run")
+        this.player.addPlatformCollider(this.platformLayer)
+        this.player.addFinishOverlap(this.platformLayer)
         
         //collectibles
         this.collectibles = this.map.createFromObjects("collectibles", "collectible1", {key:"collectible1"})
@@ -50,9 +43,8 @@ export default class GameScene extends Phaser.Scene{
         for(let collectible of this.collectibles){
             collectible.body.setAllowGravity(false)
         }
-        this.physics.add.overlap(this.collectibles, this.player, (collectible, player)=>{
-            collectible.destroy(true)
-        })
+
+        this.player.addCollectiblesOverlap(this.collectibles)
 
         //input
 		this.cursors = this.input.keyboard.createCursorKeys();
@@ -60,25 +52,12 @@ export default class GameScene extends Phaser.Scene{
         //camera
         this.cameras.main.setBackgroundColor('#ccccff');
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
-        this.cameras.main.setDeadzone(this.player.width, CST.VIEW_HEIGHT)
-        this.cameras.main.startFollow(this.player, false, 1, 1, -200, 0)
+        this.cameras.main.setDeadzone(this.player.sprite.width, CST.VIEW_HEIGHT)
+        this.cameras.main.startFollow(this.player.sprite, false, 1, 1, -200, 0)
     }
 
     update(){
-        this.cursors.space.onUp = e=>this.gSwitch(e)
-        if(this.player.body.velocity.x==0) this.player.setVelocityX(CST.X_VEL)
+        this.player.update()
+        this.cursors.space.onUp = e=>this.player.gSwitch()
     }
-
-    gSwitch(e){
-        this.player.setVelocityY(0)
-        this.player.flipY = !this.player.flipY
-        this.physics.world.gravity.y *= -1
-    }
-
-    changeDirection(player){
-        this.physics.world.gravity.y = 0
-        this.physics.world.gravity.x = -CST.G
-    }
-
-
 }
