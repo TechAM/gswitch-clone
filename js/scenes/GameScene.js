@@ -15,6 +15,7 @@ export default class GameScene extends Phaser.Scene{
     }
 
     create(){
+        this.switchSound = this.sound.add("switch");
 
         //map
         this.map = this.make.tilemap({key:"map"}) //key is referencing the tilemapTiledJSON loaded in preload
@@ -32,7 +33,8 @@ export default class GameScene extends Phaser.Scene{
         //players
         this.players = []
         for(let i=1; i<=this.numPlayers; i++){
-            this.players.push(new Player(this, CST.VIEW_WIDTH/5, i*CST.VIEW_HEIGHT/(this.numPlayers+1)))
+            let newPlayer = new Player(this, CST.VIEW_WIDTH/5, i*CST.VIEW_HEIGHT/(this.numPlayers+1))
+            this.players.push(newPlayer)
         }
 
         this.anims.create({

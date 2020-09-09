@@ -6,7 +6,6 @@ export default class Player {
         this.sprite = scene.physics.add.sprite(x, y, "man")
         this.sprite.body.gravity.y = CST.G
         this.sprite.setVelocityX(CST.X_VEL)        
-        // this.jumpSFX = scene.sound.add("jump");
     }
 
     animate(key){
@@ -28,28 +27,15 @@ export default class Player {
         })
     }
     gSwitch(){
-        console.log("hello there")
+		this.scene.switchSound.play();
         this.sprite.flipY = !this.sprite.flipY
         this.sprite.body.gravity.y*=-1
-
+        this.sprite.tint = Math.random()*0xffffff
     }
 
 	update() {
         if(this.sprite.body.velocity.x==0){
-            // console.log("stopped bro")
             this.sprite.setVelocityX(CST.X_VEL)        
         }
-            // this.cursors.space.onUp = e=>{
-
-        //     console.log("hello there")
-        //     this.gSwitch(e)
-        // }
-
-		// if (this.cursors.left.isDown) {
-		// 	direction = 0;
-		// }
-		// this.jumpSFX.play();
-		// this.sprite.setVelocityX(xvel);
-        // // this.setAnimation();
     }
 }
