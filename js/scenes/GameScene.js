@@ -53,8 +53,7 @@ export default class GameScene extends Phaser.Scene{
         //camera
         this.cameras.main.setBackgroundColor('#ccccff');
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
-        this.cameras.main.setDeadzone(this.players[0].sprite.width, CST.VIEW_HEIGHT)
-        this.cameras.main.startFollow(this.players[0].sprite, false, 1, 1, -200, 0)
+
         
         
         //input
@@ -63,11 +62,23 @@ export default class GameScene extends Phaser.Scene{
         for(let i=0; i<this.numPlayers; i++){
             keyObj[keys[i]].on('up', e=>this.players[i].gSwitch());
         }
+
+
     }
 
     update(){
         for(let player of this.players){
             player.update()
         }
+
+        let furthest = this.players.reduce((prevPlayer, currentPlayer, i)=>{
+            if(currentPlayer.sprite.x >= prevPlayer.sprite.x){
+                return currentPlayer
+            }else{
+                return prevPlayer
+            }
+        })
+        this.cameras.main.setDeadzone(furthest.sprite.width, CST.VIEW_HEIGHT)
+        this.cameras.main.startFollow(furthest.sprite, false, 1, 1, -200, 0)
     }
 }
