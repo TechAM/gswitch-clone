@@ -39,7 +39,4 @@ export default class MenuScene extends Phaser.Scene{
             this.scene.start(CST.SCENES.GAME, {numPlayers});		
 		});
     }
-
-    update(){
-    }
 }

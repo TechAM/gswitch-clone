@@ -82,19 +82,28 @@ export default class GameScene extends Phaser.Scene{
     }
 
     update(){
+        let totalDead = 0
         for(let player of this.players){
             player.update(this.cameras.main.scrollX)
+            totalDead += player.dead ? 1 : 0
+        }
+        if(totalDead==this.numPlayers) {
+            this.scene.start(CST.SCENES.GAME_OVER, {allDead:true})
+        }else{
+            //camera follows the  player at the front
+            let furthest = this.players
+                .filter(player=>!player.dead&&!player.finished)
+                .reduce((prevPlayer, currentPlayer)=>{
+                    if(currentPlayer.sprite.x >= prevPlayer.sprite.x){
+                        return currentPlayer
+                    }else{
+                        return prevPlayer
+                    }
+            })
+            this.cameras.main.setDeadzone(furthest.sprite.width, CST.VIEW_HEIGHT)
+            this.cameras.main.startFollow(furthest.sprite, false, 1, 1, -200, 0)
         }
 
-        //camera follows the  player at the front
-        let furthest = this.players.reduce((prevPlayer, currentPlayer, i)=>{
-            if(currentPlayer.sprite.x >= prevPlayer.sprite.x){
-                return currentPlayer
-            }else{
-                return prevPlayer
-            }
-        })
-        this.cameras.main.setDeadzone(furthest.sprite.width, CST.VIEW_HEIGHT)
-        this.cameras.main.startFollow(furthest.sprite, false, 1, 1, -200, 0)
+
     }
 }

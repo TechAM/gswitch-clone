@@ -1,5 +1,6 @@
 import MenuScene from './scenes/MenuScene.js'
 import GameScene from "./scenes/GameScene.js"
+import GameoverScene from "./scenes/GameoverScene.js"
 import {VIEW_WIDTH, VIEW_HEIGHT, G} from './CST.js'
 
 let config = {
@@ -19,7 +20,7 @@ let config = {
 			debug: false
 		}
 	},
-	scene: [MenuScene, GameScene],
+	scene: [MenuScene, GameScene, GameoverScene],
 }
 
 let game = new Phaser.Game(config);
