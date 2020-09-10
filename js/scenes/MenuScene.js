@@ -13,6 +13,8 @@ export default class MenuScene extends Phaser.Scene{
         this.load.tilemapTiledJSON("map", "assets/tiles/tilemap.json")
 
         this.load.audio("switch", "assets/sounds/swish.mp3")
+        this.load.audio("finish", "assets/sounds/my_man.mp3")
+        this.load.audio("dead", "assets/sounds/aids.mp3")
     }
 
     create(){

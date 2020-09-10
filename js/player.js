@@ -4,14 +4,20 @@ export default class Player {
 
     constructor (scene, x, y) {
         this.scene = scene
-        this.sprite = scene.physics.add.sprite(x, y, "man")
-        this.sprite.body.gravity.y = CST.G
-        this.sprite.setVelocityX(CST.X_VEL) 
+        this.setupSprite(x, y)
         this.id = Player.count
-        Player.count += 1 
+        Player.count += 1
+
+        this.winner = false
+        this.finished = false
+        this.dead = false
     }
 
-
+    setupSprite(x, y){
+        this.sprite = this.scene.physics.add.sprite(x, y, "man")
+        this.sprite.body.gravity.y = CST.G
+        this.sprite.setVelocityX(CST.X_VEL) 
+    }
     animate(key){
         this.sprite.anims.play(key, true)
     }
@@ -20,8 +26,12 @@ export default class Player {
     }
     addFinishOverlap(platformlayer){
         this.scene.physics.add.overlap(platformlayer, this.sprite, (player, tile)=>{
-            if(tile.index == 4){
-                console.log(`Player ${this.id+1} finishes`)
+            if(!this.finished){    
+                if(tile.index == 4){
+                    console.log(`Player ${this.id+1} finishes`)
+                    this.finished = true
+                    this.scene.finishSound.play()
+                }
             }
         })
     }
@@ -36,13 +46,27 @@ export default class Player {
         this.sprite.body.gravity.y*=-1
     }
 
-	update() {
-        if(this.sprite.body.velocity.x==0){
-            this.sprite.setVelocityX(CST.X_VEL)        
+	update(scrollX) {
+        if(!this.dead && !this.finished){
+            if(this.sprite.body.velocity.x==0){
+                this.sprite.setVelocityX(CST.X_VEL)        
+            }
+        }
+        if(!this.dead){
+            //if player is of the screen, destroy the sprite and remove from scene
+            let justDied = this.sprite.x-scrollX<=-50 || this.sprite.y>CST.VIEW_HEIGHT+50 || this.sprite.y<-50
+            if(justDied){
+                this.die()
+            }
         }
     }
 
-    destroy(){
-        this.sprite.destroy()
+    die(){
+        if(!this.dead){
+            console.log(`Player ${this.id+1} is dead`)
+            this.scene.deadSound.play()
+            this.dead = true
+            this.sprite.destroy()
+        }
     }
 }

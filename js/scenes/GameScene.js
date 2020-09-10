@@ -16,6 +16,8 @@ export default class GameScene extends Phaser.Scene{
 
     create(){
         this.switchSound = this.sound.add("switch");
+        this.finishSound = this.sound.add("finish");
+        this.deadSound = this.sound.add("dead");
 
         //map
         this.map = this.make.tilemap({key:"map"}) //key is referencing the tilemapTiledJSON loaded in preload
@@ -60,10 +62,13 @@ export default class GameScene extends Phaser.Scene{
         
         
         //input
-        let keys = ['SPACE', 'Q']
-        let keyObj = this.input.keyboard.addKeys(keys.join(', '));  // Get key object
+        this.keys = ['SPACE', 'Q', 'P']
+        this.keyObj = this.input.keyboard.addKeys(this.keys.join(', '));  // Get key object
         for(let i=0; i<this.numPlayers; i++){
-            keyObj[keys[i]].on('up', e=>this.players[i].gSwitch());
+            this.keyObj[this.keys[i]].on('up', e=>{
+                if(!this.players[i].dead && !this.players[i].finished)
+                    this.players[i].gSwitch()
+            })
         }
 
 
@@ -71,7 +76,7 @@ export default class GameScene extends Phaser.Scene{
 
     update(){
         for(let player of this.players){
-            player.update()
+            player.update(this.cameras.main.scrollX)
         }
 
         //camera follows the  player at the front
@@ -84,15 +89,5 @@ export default class GameScene extends Phaser.Scene{
         })
         this.cameras.main.setDeadzone(furthest.sprite.width, CST.VIEW_HEIGHT)
         this.cameras.main.startFollow(furthest.sprite, false, 1, 1, -200, 0)
-
-        //if player is of the screen, destroy the sprite and remove from scene
-        for(let player of this.players){
-            if(player.sprite.x-this.cameras.main.scrollX<=-50){
-                console.log(`Player ${player.id+1} is dead`)
-                player.destroy()
-                let index = this.players.indexOf(player)
-                this.players.splice(index, 1)
-            }
-        }
     }
 }
