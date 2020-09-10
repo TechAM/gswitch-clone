@@ -4,9 +4,10 @@ export default class Player {
 
     constructor (scene, x, y) {
         this.scene = scene
-        this.setupSprite(x, y)
         this.id = Player.count
         Player.count += 1
+        this.setupSprite(x, y)
+
 
         this.winner = false
         this.finished = false
@@ -14,7 +15,7 @@ export default class Player {
     }
 
     setupSprite(x, y){
-        this.sprite = this.scene.physics.add.sprite(x, y, "man")
+        this.sprite = this.scene.physics.add.sprite(x, y, `man${this.id}`)
         this.sprite.body.gravity.y = CST.G
         this.sprite.setVelocityX(CST.X_VEL) 
     }
@@ -54,6 +55,7 @@ export default class Player {
         }
         if(!this.dead){
             //if player is of the screen, destroy the sprite and remove from scene
+            //TODO: check these boundaries
             let justDied = this.sprite.x-scrollX<=-50 || this.sprite.y>CST.VIEW_HEIGHT+50 || this.sprite.y<-50
             if(justDied){
                 this.die()

@@ -8,3 +8,10 @@ export const SCENES = {
 
 export const X_VEL = 250
 export const G = 500
+
+export const COLORS = [
+    'black',
+    'red',
+    'blue',
+    'green',
+]

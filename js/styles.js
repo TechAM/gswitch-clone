@@ -1,4 +1,4 @@
-export const BUTTON = {
-	font: "40px Impact",
-	color: "white"
+export const BUTTON_STYLE = {
+	font: "30px",
+	color: "black"
 }

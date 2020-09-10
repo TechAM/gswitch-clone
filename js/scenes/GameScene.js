@@ -12,6 +12,10 @@ export default class GameScene extends Phaser.Scene{
     }
 
     preload(){
+        for(let i=0; i<this.numPlayers; i++){
+            console.log(`man${i}`, `assets/sprites/man-${CST.COLORS[i]}.png`)
+            this.load.spritesheet(`man${i}`, `assets/sprites/man-${CST.COLORS[i]}.png`, {frameWidth: 100, frameHeight: 100})
+        }
     }
 
     create(){
@@ -40,23 +44,26 @@ export default class GameScene extends Phaser.Scene{
             this.players.push(newPlayer)
         }
 
-        this.anims.create({
-			key: "run",
-			frames: this.anims.generateFrameNumbers("man", {start: 0, end: 3}),
-			frameRate: 10,
-			repeat: -1,
-        });
-    
+        for(let i=0; i<this.numPlayers; i++){
+            this.anims.create({
+                key: `run${i}`,
+                frames: this.anims.generateFrameNumbers(`man${i}`, {start: 0, end: 3}),
+                frameRate: 10,
+                repeat: -1,
+            });
+        }
+
         for(let player of this.players){
-            player.animate("run")
             player.addPlatformCollider(this.platformLayer)
             player.addFinishOverlap(this.platformLayer)
             player.addCollectiblesOverlap(this.collectibles)
+            player.animate(`run${player.id}`)
+
         }
     
 
         //camera
-        this.cameras.main.setBackgroundColor('#ccccff');
+        this.cameras.main.setBackgroundColor('#4a4a4a');
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
 
         

@@ -15,8 +15,8 @@ export class Button extends Phaser.GameObjects.Text{
 		super(scene, x, y, text, style);
 		this.setOrigin(0.5, 0.5);
 		this.setInteractive()
-			.on("pointerover", ()=>this.setColor("gray"))
-			.on("pointerout", ()=>this.setColor("white"));
+			.on("pointerover", ()=>this.setColor("white"))
+			.on("pointerout", ()=>this.setColor("black"));
 		scene.add.existing(this); //add existing game object to the scene
 	}
 
