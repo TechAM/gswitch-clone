@@ -12,17 +12,17 @@ export default class GameScene extends Phaser.Scene{
     }
 
     preload(){
+        //load in the appropriate number of spritesheets
         for(let i=0; i<this.numPlayers; i++){
-            console.log(`man${i}`, `assets/sprites/man-${CST.COLORS[i]}.png`)
-            this.load.spritesheet(`man${i}`, `assets/sprites/man-${CST.COLORS[i]}.png`, {frameWidth: 100, frameHeight: 100})
+            this.load.spritesheet(`man${i}`, `assets/sprites/man-${CST.SKINS[i]}.png`, {frameWidth: 100, frameHeight: 100})
         }
-    }
 
-    create(){
         this.switchSound = this.sound.add("switch");
         this.finishSound = this.sound.add("finish");
         this.deadSound = this.sound.add("dead");
+    }
 
+    create(){
         //map
         this.map = this.make.tilemap({key:"map"}) //key is referencing the tilemapTiledJSON loaded in preload
         let tileset = this.map.addTilesetImage("platform") //there is a tileset called "platform" in the Tiled editor
@@ -60,16 +60,13 @@ export default class GameScene extends Phaser.Scene{
             player.animate(`run${player.id}`)
 
         }
-    
 
         //camera
         this.cameras.main.setBackgroundColor('#4a4a4a');
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
-
-        
         
         //input
-        this.keys = ['SPACE', 'Q', 'P']
+        this.keys = ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN']
         this.keyObj = this.input.keyboard.addKeys(this.keys.join(', '));  // Get key object
         for(let i=0; i<this.numPlayers; i++){
             this.keyObj[this.keys[i]].on('up', e=>{
@@ -77,8 +74,6 @@ export default class GameScene extends Phaser.Scene{
                     this.players[i].gSwitch()
             })
         }
-
-
     }
 
     update(){
@@ -90,20 +85,21 @@ export default class GameScene extends Phaser.Scene{
         if(totalDead==this.numPlayers) {
             this.scene.start(CST.SCENES.GAME_OVER, {allDead:true})
         }else{
+            let furthest
             //camera follows the  player at the front
-            let furthest = this.players
-                .filter(player=>!player.dead&&!player.finished)
-                .reduce((prevPlayer, currentPlayer)=>{
-                    if(currentPlayer.sprite.x >= prevPlayer.sprite.x){
-                        return currentPlayer
-                    }else{
-                        return prevPlayer
-                    }
-            })
-            this.cameras.main.setDeadzone(furthest.sprite.width, CST.VIEW_HEIGHT)
-            this.cameras.main.startFollow(furthest.sprite, false, 1, 1, -200, 0)
+            if(this.players.filter(player=>!player.dead&&!player.finished).length > 0){ //if there is anyone to follow
+                furthest = this.players
+                    .filter(player=>!player.dead&&!player.finished)
+                    .reduce((prevPlayer, currentPlayer)=>{
+                        if(currentPlayer.sprite.x >= prevPlayer.sprite.x){
+                            return currentPlayer
+                        }else{
+                            return prevPlayer
+                        }
+                })
+                this.cameras.main.setDeadzone(furthest.sprite.width, CST.VIEW_HEIGHT)
+                this.cameras.main.startFollow(furthest.sprite, false, 1, 1, -200, 0)
+            }
         }
-
-
     }
 }

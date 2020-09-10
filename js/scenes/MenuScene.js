@@ -20,21 +20,22 @@ export default class MenuScene extends Phaser.Scene{
         this.cameras.main.setBackgroundColor('#757575');
 
         //TODO: find better way of doing radio selection
-        let numPlayers
-        this.onePlayer = new TXT.Button(this, CST.VIEW_WIDTH/4, CST.VIEW_HEIGHT/3, "ONE PLAYER")
-		this.onePlayer.onClick(()=>{
-            numPlayers = 1
+        let numPlayers = 1
+        new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/3-40, "Choose number of players")
+        this.numPlayerLabel = new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/2, numPlayers)
+
+        this.increasePlayers = new TXT.Button(this, CST.VIEW_WIDTH/2+50, CST.VIEW_HEIGHT/3, "+")
+		this.increasePlayers.onClick(()=>{
+            if(numPlayers<CST.MAX_PLAYERS) numPlayers++
+            this.numPlayerLabel.text = numPlayers
         });
-        this.twoPlayer = new TXT.Button(this, 2*CST.VIEW_WIDTH/4, CST.VIEW_HEIGHT/3, "TWO PLAYER")
-		this.twoPlayer.onClick(()=>{
-            numPlayers = 2
-        });
-        this.threePlayer = new TXT.Button(this, 3*CST.VIEW_WIDTH/4, CST.VIEW_HEIGHT/3, "THREE PLAYER")
-		this.threePlayer.onClick(()=>{
-            numPlayers = 3
+        this.decreasePlayers = new TXT.Button(this, CST.VIEW_WIDTH/2-50, CST.VIEW_HEIGHT/3, "-")
+		this.decreasePlayers.onClick(()=>{
+            if(numPlayers>1) numPlayers--
+            this.numPlayerLabel.text = numPlayers
         });
 
-		this.startButton = new TXT.Button(this, CST.VIEW_WIDTH/2, 2*CST.VIEW_HEIGHT/3, "START");
+        this.startButton = new TXT.Button(this, CST.VIEW_WIDTH/2, 2*CST.VIEW_HEIGHT/3, "START");
 		this.startButton.onClick(()=>{
             this.scene.start(CST.SCENES.GAME, {numPlayers});		
 		});

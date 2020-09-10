@@ -10,9 +10,11 @@ export const SCENES = {
 export const X_VEL = 250
 export const G = 500
 
-export const COLORS = [
-    'black',
-    'red',
-    'blue',
-    'green',
+export const SKINS = [
+    'mark',
+    'mark',
+    'mark',
+    'mark',
 ]
+
+export const MAX_PLAYERS = 4
