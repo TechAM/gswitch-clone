@@ -14,12 +14,12 @@ export default class MenuScene extends Phaser.Scene{
         this.load.audio("switch", "assets/sounds/swish.mp3")
         this.load.audio("finish", "assets/sounds/my_man.mp3")
         this.load.audio("dead", "assets/sounds/aids.mp3")
+        this.load.audio("boost", "assets/sounds/car_rev.mp3")
     }
 
     create(){
         this.cameras.main.setBackgroundColor('#757575');
 
-        //TODO: find better way of doing radio selection
         let numPlayers = 1
         new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/3-40, "Choose number of players")
         this.numPlayerLabel = new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/2, numPlayers)

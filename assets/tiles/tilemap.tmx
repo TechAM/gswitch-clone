@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="23">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="31">
  <editorsettings>
   <export target="tilemap.json" format="json"/>
  </editorsettings>
@@ -54,10 +54,31 @@
   </object>
  </objectgroup>
  <objectgroup id="6" name="collectibles">
-  <object id="20" name="collectible1" x="284" y="180">
+  <object id="20" name="collectible1" x="729.333" y="314.667">
    <point/>
   </object>
-  <object id="21" name="collectible1" x="276" y="480">
+  <object id="21" name="collectible1" x="412" y="653.333">
+   <point/>
+  </object>
+  <object id="23" name="collectible1" x="984" y="176">
+   <point/>
+  </object>
+  <object id="24" name="collectible1" x="1166.67" y="545.333">
+   <point/>
+  </object>
+  <object id="25" name="collectible1" x="1462.67" y="173.333">
+   <point/>
+  </object>
+  <object id="27" name="collectible1" x="1913.33" y="160">
+   <point/>
+  </object>
+  <object id="28" name="collectible1" x="1698.67" y="648">
+   <point/>
+  </object>
+  <object id="29" name="collectible1" x="2314.67" y="478.667">
+   <point/>
+  </object>
+  <object id="30" name="collectible1" x="2628" y="306.667">
    <point/>
   </object>
  </objectgroup>

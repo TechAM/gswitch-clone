@@ -8,6 +8,7 @@ export const SCENES = {
 }
 
 export const X_VEL = 250
+export const X_VEL_BOOST = 400
 export const G = 500
 
 export const SKINS = [

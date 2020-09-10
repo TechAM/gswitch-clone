@@ -2,7 +2,6 @@ import * as CST from "../CST.js"
 import Player from '../player.js'
 
 export default class GameScene extends Phaser.Scene{
-
     constructor(){
         super({key:CST.SCENES.GAME})
     }
@@ -17,9 +16,18 @@ export default class GameScene extends Phaser.Scene{
             this.load.spritesheet(`man${i}`, `assets/sprites/man-${CST.SKINS[i]}.png`, {frameWidth: 100, frameHeight: 100})
         }
 
-        this.switchSound = this.sound.add("switch");
-        this.finishSound = this.sound.add("finish");
-        this.deadSound = this.sound.add("dead");
+        this.switchSound = this.sound.add("switch")
+        this.boostSound = this.sound.add("boost")
+        this.finishSound = this.sound.add("finish")
+        this.deadSound = this.sound.add("dead")
+
+
+        //players
+        Player.count = 0
+        Player.numDead = 0
+        Player.numFinished = 0
+        this.players = []
+        this.finishOrder = []
     }
 
     create(){
@@ -36,9 +44,7 @@ export default class GameScene extends Phaser.Scene{
             collectible.body.setAllowGravity(false)
         }
 
-        //players
-        Player.count = 0
-        this.players = []
+
         for(let i=1; i<=this.numPlayers; i++){
             let newPlayer = new Player(this, CST.VIEW_WIDTH/5, i*CST.VIEW_HEIGHT/(this.numPlayers+1))
             this.players.push(newPlayer)
@@ -74,16 +80,16 @@ export default class GameScene extends Phaser.Scene{
                     this.players[i].gSwitch()
             })
         }
+
     }
 
     update(){
-        let totalDead = 0
         for(let player of this.players){
             player.update(this.cameras.main.scrollX)
-            totalDead += player.dead ? 1 : 0
         }
-        if(totalDead==this.numPlayers) {
-            this.scene.start(CST.SCENES.GAME_OVER, {allDead:true})
+        if(Player.numDead+Player.numFinished==this.numPlayers) {
+            // this.scene.start(CST.SCENES.GAME_OVER, {numPlayers:this.numPlayers, numDead:Player.numDead, numFinished: Player.numFinished})
+            this.scene.start(CST.SCENES.GAME_OVER, {finishOrder: this.finishOrder, players: this.players})
         }else{
             let furthest
             //camera follows the  player at the front

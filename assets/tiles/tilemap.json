@@ -59,8 +59,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":284,
-                 "y":180
+                 "x":729.333333333333,
+                 "y":314.666666666667
                 }, 
                 {
                  "height":0,
@@ -71,8 +71,92 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":276,
-                 "y":480
+                 "x":412,
+                 "y":653.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":23,
+                 "name":"collectible1",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":984,
+                 "y":176
+                }, 
+                {
+                 "height":0,
+                 "id":24,
+                 "name":"collectible1",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1166.66666666667,
+                 "y":545.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":25,
+                 "name":"collectible1",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1462.66666666667,
+                 "y":173.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":27,
+                 "name":"collectible1",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1913.33333333333,
+                 "y":160
+                }, 
+                {
+                 "height":0,
+                 "id":28,
+                 "name":"collectible1",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1698.66666666667,
+                 "y":648
+                }, 
+                {
+                 "height":0,
+                 "id":29,
+                 "name":"collectible1",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2314.66666666667,
+                 "y":478.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":30,
+                 "name":"collectible1",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2628,
+                 "y":306.666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -81,7 +165,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":23,
+ "nextobjectid":31,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",

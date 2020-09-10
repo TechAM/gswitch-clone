@@ -1,7 +1,6 @@
 import * as CST from './CST.js'
 
 export default class Player {
-
     constructor (scene, x, y) {
         this.scene = scene
         this.id = Player.count
@@ -29,16 +28,19 @@ export default class Player {
         this.scene.physics.add.overlap(platformlayer, this.sprite, (player, tile)=>{
             if(!this.finished){    
                 if(tile.index == 4){
-                    console.log(`Player ${this.id+1} finishes`)
                     this.finished = true
                     this.scene.finishSound.play()
+                    Player.numFinished += 1
+                    this.scene.finishOrder.push(this.id)
                 }
             }
         })
     }
     addCollectiblesOverlap(collectibles){
         this.scene.physics.add.overlap(collectibles, this.sprite, (collectible, player)=>{
+            this.sprite.setVelocityX(CST.X_VEL_BOOST)
             collectible.destroy(true)
+            this.scene.boostSound.play()
         })
     }
     gSwitch(){
@@ -65,10 +67,10 @@ export default class Player {
 
     die(){
         if(!this.dead){
-            console.log(`Player ${this.id+1} is dead`)
             this.scene.deadSound.play()
             this.dead = true
             this.sprite.destroy()
+            Player.numDead+=1
         }
     }
 }
