@@ -85,7 +85,6 @@ export default class GameScene extends Phaser.Scene{
         this.keys = ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN']
         this.keyObj = this.input.keyboard.addKeys(this.keys.join(', '));  // Get key object
         for(let i=0; i<this.numPlayers; i++){
-            console.log("adding event listener")
             this.keyObj[this.keys[i]].on('up', e=>{
                 if(!this.players[i].dead && !this.players[i].finished){
                     //TODO: fix bug where when game is restarted, each press is registered twice for some motherfucking reason
@@ -100,7 +99,6 @@ export default class GameScene extends Phaser.Scene{
         }
         let time = 3
         this.timerLabel = new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/2, time)
-        // this.shortBeepSound.play()
         let timer = setInterval(e=>{
             if(time>=1){
                 this.timerLabel.text = time
@@ -118,9 +116,13 @@ export default class GameScene extends Phaser.Scene{
                 }, 200)
             }
         }, 1000)
+
     }
 
     endGame(){
+        for(let key of this.keys){
+            this.input.keyboard.removeKey(key)
+        }
         this.scene.start(CST.SCENES.GAME_OVER, {finishOrder: this.finishOrder, players: this.players})
     }
 
