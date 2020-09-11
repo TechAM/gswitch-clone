@@ -18,9 +18,12 @@ export default class GameScene extends Phaser.Scene{
         }
 
         this.switchSound = this.sound.add("switch")
-        this.boostSound = this.sound.add("boost")
         this.finishSound = this.sound.add("finish")
         this.deadSound = this.sound.add("dead")
+        this.boostSound = this.sound.add("boost")
+        this.slowSound = this.sound.add("slow")
+        this.shortBeepSound = this.sound.add("short_beep")
+        this.longBeepSound = this.sound.add("long_beep")
 
 
         //players
@@ -39,11 +42,17 @@ export default class GameScene extends Phaser.Scene{
         this.platformLayer.setCollisionByExclusion([-1, 4])
         
         //collectibles
-        this.collectibles = this.map.createFromObjects("collectibles", "collectible1", {key:"collectible1"})
-        this.physics.world.enable(this.collectibles)
-        for(let collectible of this.collectibles){
+        this.goodCollectibles = this.map.createFromObjects("collectibles", "good", {key:"good"})
+        this.physics.world.enable(this.goodCollectibles)
+        for(let collectible of this.goodCollectibles){
             collectible.body.setAllowGravity(false)
         }
+        this.badCollectibles = this.map.createFromObjects("collectibles", "bad", {key:"bad"})
+        this.physics.world.enable(this.badCollectibles)
+        for(let collectible of this.badCollectibles){
+            collectible.body.setAllowGravity(false)
+        }
+
 
 
         for(let i=1; i<=this.numPlayers; i++){
@@ -63,7 +72,8 @@ export default class GameScene extends Phaser.Scene{
         for(let player of this.players){
             player.addPlatformCollider(this.platformLayer)
             player.addFinishOverlap(this.platformLayer)
-            player.addCollectiblesOverlap(this.collectibles)
+            player.addCollectiblesOverlap(this.goodCollectibles, CST.COLLECTIBLE_TYPES.FAST)
+            player.addCollectiblesOverlap(this.badCollectibles, CST.COLLECTIBLE_TYPES.SLOW)
             player.animate(`run${player.id}`)
         }
 
@@ -90,18 +100,22 @@ export default class GameScene extends Phaser.Scene{
         }
         let time = 3
         this.timerLabel = new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/2, time)
+        // this.shortBeepSound.play()
         let timer = setInterval(e=>{
-            time-=1
-            this.timerLabel.text = time
-            if(time==0) {
+            if(time>=1){
+                this.timerLabel.text = time
+                this.shortBeepSound.play()
+                time-=1
+            }else if(time==0) {
+                this.longBeepSound.play()
                 this.timerLabel.text = "GO"
                 for(let player of this.players){
                     player.sprite.body.moves = true
                 }
-            }
-            if(time<=-0.2){
-                this.timerLabel.text=''
-                clearInterval(timer)
+                setTimeout(()=>{
+                    this.timerLabel.text=''
+                    clearInterval(timer)
+                }, 200)
             }
         }, 1000)
     }

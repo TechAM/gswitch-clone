@@ -18,3 +18,10 @@ export const SKINS = [
 ]
 
 export const MAX_PLAYERS = SKINS.length
+
+export const COLLECTIBLE_TYPES = {
+    FAST:'FAST',
+    SLOW: 'SLOW'
+}
+export const COLLECTIBLE_FAST = 'COLLECTIBLE_FAST'
+export const COLLECTIBLE_SLOW = 'COLLECTIBLE_SLOW'

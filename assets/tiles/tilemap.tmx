@@ -54,31 +54,31 @@
   </object>
  </objectgroup>
  <objectgroup id="6" name="collectibles">
-  <object id="20" name="collectible1" x="729.333" y="314.667">
+  <object id="20" name="bad" x="729.333" y="314.667">
    <point/>
   </object>
-  <object id="21" name="collectible1" x="412" y="653.333">
+  <object id="21" name="good" x="412" y="653.333">
    <point/>
   </object>
-  <object id="23" name="collectible1" x="984" y="176">
+  <object id="23" name="good" x="984" y="176">
    <point/>
   </object>
-  <object id="24" name="collectible1" x="1166.67" y="545.333">
+  <object id="24" name="bad" x="1166.67" y="545.333">
    <point/>
   </object>
-  <object id="25" name="collectible1" x="1462.67" y="173.333">
+  <object id="25" name="bad" x="1462.67" y="173.333">
    <point/>
   </object>
-  <object id="27" name="collectible1" x="1913.33" y="160">
+  <object id="27" name="good" x="1913.33" y="160">
    <point/>
   </object>
-  <object id="28" name="collectible1" x="1698.67" y="648">
+  <object id="28" name="bad" x="1698.67" y="648">
    <point/>
   </object>
-  <object id="29" name="collectible1" x="2314.67" y="478.667">
+  <object id="29" name="bad" x="2314.67" y="478.667">
    <point/>
   </object>
-  <object id="30" name="collectible1" x="2628" y="306.667">
+  <object id="30" name="good" x="2628" y="306.667">
    <point/>
   </object>
  </objectgroup>

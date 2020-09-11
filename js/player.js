@@ -35,11 +35,20 @@ export default class Player {
             }
         })
     }
-    addCollectiblesOverlap(collectibles){
+    addCollectiblesOverlap(collectibles, type){
         this.scene.physics.add.overlap(collectibles, this.sprite, (collectible, player)=>{
-            this.sprite.setVelocityX(this.sprite.body.velocity.x*1.2)
             collectible.destroy(true)
-            this.scene.boostSound.play()
+            
+            switch(type){
+                case CST.COLLECTIBLE_TYPES.FAST:
+                    this.sprite.setVelocityX(this.sprite.body.velocity.x*1.2)
+                    this.scene.boostSound.play()
+                    break
+                case CST.COLLECTIBLE_TYPES.SLOW:
+                    this.sprite.setVelocityX(this.sprite.body.velocity.x*0.8)
+                    this.scene.slowSound.play()
+                    break
+            }
         })
     }
     gSwitch(){

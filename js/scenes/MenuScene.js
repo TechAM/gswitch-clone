@@ -7,7 +7,9 @@ export default class MenuScene extends Phaser.Scene{
     }
 
     preload(){
-        this.load.spritesheet("collectible1", "assets/sprites/chicken.png", {frameWidth: 64, frameHeight: 64})
+        this.load.spritesheet("good", "assets/sprites/chicken.png", {frameWidth: 64, frameHeight: 64})
+        this.load.spritesheet("bad", "assets/sprites/donut.png", {frameWidth: 64, frameHeight: 64})
+
         this.load.spritesheet("platform", "assets/tiles/platformTiles.png", {frameWidth:32, frameHeight:32})
         this.load.tilemapTiledJSON("map", "assets/tiles/tilemap.json")
 
@@ -15,6 +17,10 @@ export default class MenuScene extends Phaser.Scene{
         this.load.audio("finish", "assets/sounds/my_man.mp3")
         this.load.audio("dead", "assets/sounds/aids.mp3")
         this.load.audio("boost", "assets/sounds/car_rev.mp3")
+        this.load.audio("slow", "assets/sounds/oh_man.mp3")
+        this.load.audio("short_beep", "assets/sounds/jeff_short.mp3")
+        this.load.audio("long_beep", "assets/sounds/jeff.mp3")
+
     }
 
     create(){

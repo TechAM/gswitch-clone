@@ -53,31 +53,31 @@
                 {
                  "height":0,
                  "id":20,
-                 "name":"collectible1",
+                 "name":"bad",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":729.333333333333,
-                 "y":314.666666666667
+                 "x":729.333,
+                 "y":314.667
                 }, 
                 {
                  "height":0,
                  "id":21,
-                 "name":"collectible1",
+                 "name":"good",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
                  "x":412,
-                 "y":653.333333333333
+                 "y":653.333
                 }, 
                 {
                  "height":0,
                  "id":23,
-                 "name":"collectible1",
+                 "name":"good",
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -89,74 +89,74 @@
                 {
                  "height":0,
                  "id":24,
-                 "name":"collectible1",
+                 "name":"bad",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1166.66666666667,
-                 "y":545.333333333333
+                 "x":1166.67,
+                 "y":545.333
                 }, 
                 {
                  "height":0,
                  "id":25,
-                 "name":"collectible1",
+                 "name":"bad",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1462.66666666667,
-                 "y":173.333333333333
+                 "x":1462.67,
+                 "y":173.333
                 }, 
                 {
                  "height":0,
                  "id":27,
-                 "name":"collectible1",
+                 "name":"good",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1913.33333333333,
+                 "x":1913.33,
                  "y":160
                 }, 
                 {
                  "height":0,
                  "id":28,
-                 "name":"collectible1",
+                 "name":"bad",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1698.66666666667,
+                 "x":1698.67,
                  "y":648
                 }, 
                 {
                  "height":0,
                  "id":29,
-                 "name":"collectible1",
+                 "name":"bad",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2314.66666666667,
-                 "y":478.666666666667
+                 "x":2314.67,
+                 "y":478.667
                 }, 
                 {
                  "height":0,
                  "id":30,
-                 "name":"collectible1",
+                 "name":"good",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
                  "x":2628,
-                 "y":306.666666666667
+                 "y":306.667
                 }],
          "opacity":1,
          "type":"objectgroup",
