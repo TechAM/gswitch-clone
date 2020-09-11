@@ -8,7 +8,6 @@ export default class Player {
         this.setupSprite(x, y)
 
 
-        this.winner = false
         this.finished = false
         this.dead = false
     }
@@ -38,7 +37,7 @@ export default class Player {
     }
     addCollectiblesOverlap(collectibles){
         this.scene.physics.add.overlap(collectibles, this.sprite, (collectible, player)=>{
-            this.sprite.setVelocityX(CST.X_VEL_BOOST)
+            this.sprite.setVelocityX(this.sprite.body.velocity.x*1.2)
             collectible.destroy(true)
             this.scene.boostSound.play()
         })

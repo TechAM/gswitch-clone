@@ -13,9 +13,8 @@ export const G = 500
 
 export const SKINS = [
     'mark',
-    'mark',
-    'mark',
-    'mark',
+    'daisy',
+    'red'
 ]
 
-export const MAX_PLAYERS = 4
+export const MAX_PLAYERS = SKINS.length

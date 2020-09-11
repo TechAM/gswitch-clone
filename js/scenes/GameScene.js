@@ -1,4 +1,5 @@
 import * as CST from "../CST.js"
+import * as TXT from "../textClasses.js"
 import Player from '../player.js'
 
 export default class GameScene extends Phaser.Scene{
@@ -64,7 +65,6 @@ export default class GameScene extends Phaser.Scene{
             player.addFinishOverlap(this.platformLayer)
             player.addCollectiblesOverlap(this.collectibles)
             player.animate(`run${player.id}`)
-
         }
 
         //camera
@@ -75,12 +75,39 @@ export default class GameScene extends Phaser.Scene{
         this.keys = ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN']
         this.keyObj = this.input.keyboard.addKeys(this.keys.join(', '));  // Get key object
         for(let i=0; i<this.numPlayers; i++){
+            console.log("adding event listener")
             this.keyObj[this.keys[i]].on('up', e=>{
-                if(!this.players[i].dead && !this.players[i].finished)
+                if(!this.players[i].dead && !this.players[i].finished){
+                    //TODO: fix bug where when game is restarted, each press is registered twice for some motherfucking reason
                     this.players[i].gSwitch()
+                }
             })
         }
 
+        //3 second countdown before starting game
+        for(let player of this.players){
+            player.sprite.body.moves = false
+        }
+        let time = 3
+        this.timerLabel = new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/2, time)
+        let timer = setInterval(e=>{
+            time-=1
+            this.timerLabel.text = time
+            if(time==0) {
+                this.timerLabel.text = "GO"
+                for(let player of this.players){
+                    player.sprite.body.moves = true
+                }
+            }
+            if(time<=-0.2){
+                this.timerLabel.text=''
+                clearInterval(timer)
+            }
+        }, 1000)
+    }
+
+    endGame(){
+        this.scene.start(CST.SCENES.GAME_OVER, {finishOrder: this.finishOrder, players: this.players})
     }
 
     update(){
@@ -88,8 +115,7 @@ export default class GameScene extends Phaser.Scene{
             player.update(this.cameras.main.scrollX)
         }
         if(Player.numDead+Player.numFinished==this.numPlayers) {
-            // this.scene.start(CST.SCENES.GAME_OVER, {numPlayers:this.numPlayers, numDead:Player.numDead, numFinished: Player.numFinished})
-            this.scene.start(CST.SCENES.GAME_OVER, {finishOrder: this.finishOrder, players: this.players})
+            this.endGame()
         }else{
             let furthest
             //camera follows the  player at the front
