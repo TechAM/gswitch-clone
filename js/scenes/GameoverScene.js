@@ -28,6 +28,9 @@ export default class GameOver extends Phaser.Scene{
         });
 
         let keyObj = this.input.keyboard.addKeys('SPACE');  // Get key object
-        keyObj['SPACE'].on('up', e=>this.scene.start(CST.SCENES.MENU))
+        keyObj['SPACE'].on('up', e=>{
+            this.input.keyboard.removeKey('SPACE')
+            this.scene.start(CST.SCENES.MENU)
+        })
     }
 }

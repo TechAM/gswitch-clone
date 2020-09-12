@@ -87,7 +87,6 @@ export default class GameScene extends Phaser.Scene{
         for(let i=0; i<this.numPlayers; i++){
             this.keyObj[this.keys[i]].on('up', e=>{
                 if(!this.players[i].dead && !this.players[i].finished){
-                    //TODO: fix bug where when game is restarted, each press is registered twice for some motherfucking reason
                     this.players[i].gSwitch()
                 }
             })

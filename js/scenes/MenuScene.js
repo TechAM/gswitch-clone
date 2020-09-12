@@ -39,10 +39,10 @@ export default class MenuScene extends Phaser.Scene{
 		this.startButton.onClick(()=>this.startGame());
         
 
-        let keyObj = this.input.keyboard.addKeys('UP, DOWN, ENTER');  // Get key object
+        let keyObj = this.input.keyboard.addKeys('UP, DOWN, SPACE');  // Get key object
         keyObj['UP'].on('up', e=>this.incrementPlayers())
         keyObj['DOWN'].on('up', e=>this.decrementPlayers())
-        keyObj['ENTER'].on('up', e=>this.startGame())
+        keyObj['SPACE'].on('up', e=>this.startGame())
 
     }
 
@@ -57,6 +57,10 @@ export default class MenuScene extends Phaser.Scene{
     }
 
     startGame(){
+        this.input.keyboard.removeKey('UP')
+        this.input.keyboard.removeKey('DOWN')
+        this.input.keyboard.removeKey('SPACE')
+
         this.scene.start(CST.SCENES.GAME, {numPlayers: this.numPlayers});		
     }
 }
