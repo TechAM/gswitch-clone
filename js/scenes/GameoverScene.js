@@ -25,6 +25,9 @@ export default class GameOver extends Phaser.Scene{
 		this.menuButton = new TXT.Button(this, CST.VIEW_WIDTH/2, 2*CST.VIEW_HEIGHT/3, "MAIN MENU");
 		this.menuButton.onClick(()=>{
             this.scene.start(CST.SCENES.MENU);		
-		});
+        });
+
+        let keyObj = this.input.keyboard.addKeys('SPACE');  // Get key object
+        keyObj['SPACE'].on('up', e=>this.scene.start(CST.SCENES.MENU))
     }
 }

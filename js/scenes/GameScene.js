@@ -120,6 +120,7 @@ export default class GameScene extends Phaser.Scene{
     }
 
     endGame(){
+        //to fix the bug where event was triggered twice for some reason
         for(let key of this.keys){
             this.input.keyboard.removeKey(key)
         }

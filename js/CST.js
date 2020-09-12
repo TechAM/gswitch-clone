@@ -15,7 +15,10 @@ export const SKINS = [
     'mark',
     'maciek',
     'daisy',
-
+    'alex',
+    'avi',
+    'jess',
+    'charlie'
 ]
 
 export const MAX_PLAYERS = SKINS.length

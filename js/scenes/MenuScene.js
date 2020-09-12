@@ -26,24 +26,37 @@ export default class MenuScene extends Phaser.Scene{
     create(){
         this.cameras.main.setBackgroundColor('#757575');
 
-        let numPlayers = 1
+        this.numPlayers = 1
         new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/3-40, "Choose number of players")
-        this.numPlayerLabel = new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/2, numPlayers)
+        this.numPlayerLabel = new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/2, this.numPlayers)
 
-        this.increasePlayers = new TXT.Button(this, CST.VIEW_WIDTH/2+50, CST.VIEW_HEIGHT/3, "+")
-		this.increasePlayers.onClick(()=>{
-            if(numPlayers<CST.MAX_PLAYERS) numPlayers++
-            this.numPlayerLabel.text = numPlayers
-        });
-        this.decreasePlayers = new TXT.Button(this, CST.VIEW_WIDTH/2-50, CST.VIEW_HEIGHT/3, "-")
-		this.decreasePlayers.onClick(()=>{
-            if(numPlayers>1) numPlayers--
-            this.numPlayerLabel.text = numPlayers
-        });
+        this.increasePlayersButton = new TXT.Button(this, CST.VIEW_WIDTH/2+50, CST.VIEW_HEIGHT/3, "+")
+		this.increasePlayersButton.onClick(()=>this.incrementPlayers());
+        this.decreasePlayersButton = new TXT.Button(this, CST.VIEW_WIDTH/2-50, CST.VIEW_HEIGHT/3, "-")
+		this.decreasePlayersButton.onClick(()=>this.decrementPlayers());
 
         this.startButton = new TXT.Button(this, CST.VIEW_WIDTH/2, 2*CST.VIEW_HEIGHT/3, "START");
-		this.startButton.onClick(()=>{
-            this.scene.start(CST.SCENES.GAME, {numPlayers});		
-		});
+		this.startButton.onClick(()=>this.startGame());
+        
+
+        let keyObj = this.input.keyboard.addKeys('UP, DOWN, ENTER');  // Get key object
+        keyObj['UP'].on('up', e=>this.incrementPlayers())
+        keyObj['DOWN'].on('up', e=>this.decrementPlayers())
+        keyObj['ENTER'].on('up', e=>this.startGame())
+
+    }
+
+    incrementPlayers(){
+        if(this.numPlayers<CST.MAX_PLAYERS) this.numPlayers++
+        this.numPlayerLabel.text = this.numPlayers
+    }
+
+    decrementPlayers(){
+        if(this.numPlayers>1) this.numPlayers--
+        this.numPlayerLabel.text = this.numPlayers
+    }
+
+    startGame(){
+        this.scene.start(CST.SCENES.GAME, {numPlayers: this.numPlayers});		
     }
 }
