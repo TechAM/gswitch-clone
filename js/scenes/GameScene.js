@@ -9,19 +9,17 @@ export default class GameScene extends Phaser.Scene{
 
     init(data){
         this.chosenPlayers = data.chosenPlayers.map(name => CST.SKINS.indexOf(name))
-        this.numPlayers = data.numPlayers
+        // this.numPlayers = data.numPlayers
     }
 
     preload(){
-        //load in the appropriate number of spritesheets
-        for(let i=0; i<this.numPlayers; i++){
+        //TODO: make it so it loads in only the spritesheets required
+        for(let i=0; i<CST.SKINS.length; i++){
             this.load.spritesheet(`man${i}`, `assets/sprites/man-${CST.SKINS[i]}.png`, {frameWidth: 100, frameHeight: 100})
         }
-
         this.uniqueChosenPlayers = this.chosenPlayers.filter((value, index, self)=>self.indexOf(value)===index) 
-        // for(let i=0; i<uniqueChosenPlayers; i++){
-        //     this.load.spritesheet(`man${i}`, `assets/sprites/man-${uniqueChosenPlayers[i]}.png`, {frameWidth: 100, frameHeight: 100})
-        // }
+        
+
 
         this.switchSound = this.sound.add("switch")
         this.finishSound = this.sound.add("finish")
@@ -59,8 +57,8 @@ export default class GameScene extends Phaser.Scene{
             collectible.body.setAllowGravity(false)
         }
 
-        for(let i=1; i<=this.numPlayers; i++){
-            let newPlayer = new Player(this, CST.VIEW_WIDTH/5, i*CST.VIEW_HEIGHT/(this.numPlayers+1), this.chosenPlayers[i-1])
+        for(let i=1; i<=this.chosenPlayers.length; i++){
+            let newPlayer = new Player(this, CST.VIEW_WIDTH/5, i*CST.VIEW_HEIGHT/(this.chosenPlayers.length+1), this.chosenPlayers[i-1])
             this.players.push(newPlayer)
         }
 
@@ -86,9 +84,10 @@ export default class GameScene extends Phaser.Scene{
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
         
         //input
-        this.keys = ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN']
+        this.keys = ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE']
         this.keyObj = this.input.keyboard.addKeys(this.keys.join(', '));  // Get key object
-        for(let i=0; i<this.numPlayers; i++){
+        for(let i=0; i<this.chosenPlayers.length; i++){
+            console.log(i)
             this.keyObj[this.keys[i]].on('up', e=>{
                 if(!this.players[i].dead && !this.players[i].finished){
                     this.players[i].gSwitch()
@@ -134,7 +133,7 @@ export default class GameScene extends Phaser.Scene{
         for(let player of this.players){
             player.update(this.cameras.main.scrollX)
         }
-        if(Player.numDead+Player.numFinished==this.numPlayers) {
+        if(Player.numDead+Player.numFinished==this.chosenPlayers.length) {
             this.endGame()
         }else{
             let furthest

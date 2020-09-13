@@ -36,11 +36,8 @@ export default class ChoosePlayerScene extends Phaser.Scene{
         })
 
         keyObj['SPACE'].on('up', e=>{
-            console.log(playerNumber, this.numPlayers)
-
             if(!playersChosen){
                 this.chosenPlayers.push(this.currentPlayer.text)
-                console.log(this.chosenPlayers)
                 playerNumber += 1
 
                 if(playerNumber==this.numPlayers+1){
@@ -57,8 +54,7 @@ export default class ChoosePlayerScene extends Phaser.Scene{
         })
 
 
-        this.startButton = new TXT.Button(this, CST.VIEW_WIDTH/2, 4*CST.VIEW_HEIGHT/5, "START");
-		this.startButton.onClick(()=>this.startGame());
+        new TXT.Text(this, CST.VIEW_WIDTH/2, 4*CST.VIEW_HEIGHT/5, "Press spacebar to start");
     }
 
     
@@ -67,6 +63,6 @@ export default class ChoosePlayerScene extends Phaser.Scene{
         this.input.keyboard.removeKey('DOWN')
         this.input.keyboard.removeKey('SPACE')
 
-        this.scene.start(CST.SCENES.GAME, {numPlayers: this.numPlayers, chosenPlayers: this.chosenPlayers});		
+        this.scene.start(CST.SCENES.GAME, {chosenPlayers: this.chosenPlayers});		
     }
 }

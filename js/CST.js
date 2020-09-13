@@ -19,10 +19,15 @@ export const SKINS = [
     'alex',
     'avi',
     'jess',
-    'charlie'
+    'charlie',
+    'joe',
+    'black',
+    'red',
+    'green',
+    'blue'
 ]
 
-export const MAX_PLAYERS = SKINS.length
+export const MAX_PLAYERS = 5
 
 export const COLLECTIBLE_TYPES = {
     FAST:'FAST',

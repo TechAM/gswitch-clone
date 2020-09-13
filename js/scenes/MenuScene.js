@@ -27,7 +27,7 @@ export default class MenuScene extends Phaser.Scene{
         this.cameras.main.setBackgroundColor('#757575');
 
         this.numPlayers = 1
-        new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/3-40, "Choose number of players")
+        new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/4, "Choose number of players with up/down arrow keys")
         this.numPlayerLabel = new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/2, this.numPlayers)
 
         this.increasePlayersButton = new TXT.Button(this, CST.VIEW_WIDTH/2+50, CST.VIEW_HEIGHT/3, "+")
@@ -35,9 +35,7 @@ export default class MenuScene extends Phaser.Scene{
         this.decreasePlayersButton = new TXT.Button(this, CST.VIEW_WIDTH/2-50, CST.VIEW_HEIGHT/3, "-")
 		this.decreasePlayersButton.onClick(()=>this.decrementPlayers());
 
-        this.nextButton = new TXT.Button(this, CST.VIEW_WIDTH/2, 2*CST.VIEW_HEIGHT/3, "NEXT");
-		this.nextButton.onClick(()=>this.nextScene());
-        
+        new TXT.Text(this, CST.VIEW_WIDTH/2, 2*CST.VIEW_HEIGHT/3, "Press spacebar to continue");        
 
         let keyObj = this.input.keyboard.addKeys('UP, DOWN, SPACE');  // Get key object
         keyObj['UP'].on('up', e=>this.incrementPlayers())
