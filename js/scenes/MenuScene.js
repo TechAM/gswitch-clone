@@ -27,6 +27,8 @@ export default class MenuScene extends Phaser.Scene{
 
     create(){
         this.game.music = this.sound.add("background")
+        this.game.music.setVolume(0.2)
+        this.game.music.setLoop(true)
 
         this.cameras.main.setBackgroundColor('#757575');
 
