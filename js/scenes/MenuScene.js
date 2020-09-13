@@ -20,10 +20,14 @@ export default class MenuScene extends Phaser.Scene{
         this.load.audio("slow", "assets/sounds/oh_man.mp3")
         this.load.audio("short_beep", "assets/sounds/jeff_short.mp3")
         this.load.audio("long_beep", "assets/sounds/jeff.mp3")
+        this.load.audio("background", "assets/sounds/embers.mp3")
+
 
     }
 
     create(){
+        this.game.music = this.sound.add("background")
+
         this.cameras.main.setBackgroundColor('#757575');
 
         this.numPlayers = 1
@@ -55,6 +59,8 @@ export default class MenuScene extends Phaser.Scene{
     }
 
     nextScene(){
+        this.game.music.play()
+
         this.input.keyboard.removeKey('UP')
         this.input.keyboard.removeKey('DOWN')
         this.input.keyboard.removeKey('SPACE')
