@@ -60,6 +60,7 @@ export default class GameScene extends Phaser.Scene{
         for(let i=1; i<=this.chosenPlayers.length; i++){
             let newPlayer = new Player(this, CST.VIEW_WIDTH/5, i*CST.VIEW_HEIGHT/(this.chosenPlayers.length+1), this.chosenPlayers[i-1])
             this.players.push(newPlayer)
+            this[`player${i}Label`] = new TXT.Text(this, CST.VIEW_WIDTH/6, i*CST.VIEW_HEIGHT/(this.chosenPlayers.length+1), i)
         }
 
         for(let i of this.uniqueChosenPlayers){

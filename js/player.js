@@ -6,6 +6,8 @@ export default class Player {
         this.skinID = skinID 
         this.id = Player.count
         Player.count += 1
+
+        this.velocity = CST.X_VEL
         this.setupSprite(x, y)
 
 
@@ -16,7 +18,7 @@ export default class Player {
     setupSprite(x, y){
         this.sprite = this.scene.physics.add.sprite(x, y, `man${this.skinID}`)
         this.sprite.body.gravity.y = CST.G
-        this.sprite.setVelocityX(CST.X_VEL) 
+        this.sprite.setVelocityX(this.velocity) 
         this.sprite.body.setSize(68, 98, 16, 0)
     }
     animate(key){
@@ -43,14 +45,16 @@ export default class Player {
             
             switch(type){
                 case CST.COLLECTIBLE_TYPES.FAST:
-                    this.sprite.setVelocityX(this.sprite.body.velocity.x*1.2)
+                    this.velocity+=30
                     this.scene.boostSound.play()
                     break
                 case CST.COLLECTIBLE_TYPES.SLOW:
-                    this.sprite.setVelocityX(this.sprite.body.velocity.x*0.8)
+                    this.velocity-=30
                     this.scene.slowSound.play()
-                    break
+                    break                
             }
+            this.sprite.setVelocityX(this.velocity)
+
         })
     }
     gSwitch(){
@@ -62,7 +66,7 @@ export default class Player {
 	update(scrollX) {
         if(!this.dead && !this.finished){
             if(this.sprite.body.velocity.x==0){
-                this.sprite.setVelocityX(CST.X_VEL)        
+                this.sprite.setVelocityX(this.velocity)        
             }
         }
         if(!this.dead){

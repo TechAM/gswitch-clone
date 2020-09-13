@@ -10,7 +10,6 @@ export default class ChoosePlayerScene extends Phaser.Scene{
     }
 
     preload(){
-        this.availablePlayers = [...CST.SKINS]
         this.chosenPlayers = []
     }
 
@@ -23,16 +22,16 @@ export default class ChoosePlayerScene extends Phaser.Scene{
         let playerNumber = 1; //index of the player choosing
         new TXT.Text(this, CST.VIEW_WIDTH/3, (2+playerNumber)*CST.VIEW_HEIGHT/11, `Player 1: `)
         let currentPlayerIndex = 0 //index of the player shown in the list of available players
-        this.currentPlayer = new TXT.Text(this, 2*CST.VIEW_WIDTH/3, (3+playerNumber-1)*CST.VIEW_HEIGHT/11, this.availablePlayers[currentPlayerIndex])
+        this.currentPlayer = new TXT.Text(this, 2*CST.VIEW_WIDTH/3, (3+playerNumber-1)*CST.VIEW_HEIGHT/11, CST.SKINS[currentPlayerIndex])
 
         let keyObj = this.input.keyboard.addKeys('UP, DOWN, SPACE');  // Get key object
         keyObj['UP'].on('up', e=>{
-            currentPlayerIndex = (this.availablePlayers.length+currentPlayerIndex + 1)%this.availablePlayers.length
-            this.currentPlayer.text=this.availablePlayers[currentPlayerIndex]
+            currentPlayerIndex = (CST.SKINS.length+currentPlayerIndex + 1)%CST.SKINS.length
+            this.currentPlayer.text=CST.SKINS[currentPlayerIndex]
         })
         keyObj['DOWN'].on('up', e=>{
-            currentPlayerIndex = (this.availablePlayers.length+currentPlayerIndex - 1)%this.availablePlayers.length
-            this.currentPlayer.text=this.availablePlayers[currentPlayerIndex]
+            currentPlayerIndex = (CST.SKINS.length+currentPlayerIndex - 1)%CST.SKINS.length
+            this.currentPlayer.text=CST.SKINS[currentPlayerIndex]
         })
 
         keyObj['SPACE'].on('up', e=>{
