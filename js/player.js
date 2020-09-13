@@ -1,8 +1,9 @@
 import * as CST from './CST.js'
 
 export default class Player {
-    constructor (scene, x, y) {
+    constructor (scene, x, y, skinID) {
         this.scene = scene
+        this.skinID = skinID 
         this.id = Player.count
         Player.count += 1
         this.setupSprite(x, y)
@@ -13,9 +14,10 @@ export default class Player {
     }
 
     setupSprite(x, y){
-        this.sprite = this.scene.physics.add.sprite(x, y, `man${this.id}`)
+        this.sprite = this.scene.physics.add.sprite(x, y, `man${this.skinID}`)
         this.sprite.body.gravity.y = CST.G
         this.sprite.setVelocityX(CST.X_VEL) 
+        this.sprite.body.setSize(68, 98, 16, 0)
     }
     animate(key){
         this.sprite.anims.play(key, true)

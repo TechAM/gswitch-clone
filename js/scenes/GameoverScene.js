@@ -15,10 +15,12 @@ export default class GameOver extends Phaser.Scene{
         this.cameras.main.setBackgroundColor('#757575');
         let text = 'LEADERBOARD:\n\n\n'
         for(let i=0; i<this.finishOrder.length; i++){
-            text+= `${i+1}) Player ${this.players[this.finishOrder[i]].id+1}\n`
+            let player = this.players[this.finishOrder[i]]
+            text+= `${i+1}) Player ${player.id+1} (${CST.SKINS[player.skinID]})\n`
         }
-        for(let i=0; i<this.players.length; i++){
-            if(this.players[i].dead) text+=`Player ${i+1} DEAD\n`
+        for(let i=0; i<this.players.length; i++){  
+            let player = this.players[i] 
+            if(player.dead) text+=`Player ${i+1} (${CST.SKINS[player.skinID]}) DEAD\n`
         }
         new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/3, text)
 

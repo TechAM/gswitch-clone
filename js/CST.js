@@ -3,8 +3,9 @@ export const VIEW_HEIGHT = 768
 
 export const SCENES = {
     MENU: "MenuScene",
+    CHOOSE_PLAYER: "ChooserPlayerScene",
     GAME: "GameScene",
-    GAME_OVER: "GameoverScene"
+    GAME_OVER: "GameoverScene",
 }
 
 export const X_VEL = 250

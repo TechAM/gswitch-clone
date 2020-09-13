@@ -35,14 +35,14 @@ export default class MenuScene extends Phaser.Scene{
         this.decreasePlayersButton = new TXT.Button(this, CST.VIEW_WIDTH/2-50, CST.VIEW_HEIGHT/3, "-")
 		this.decreasePlayersButton.onClick(()=>this.decrementPlayers());
 
-        this.startButton = new TXT.Button(this, CST.VIEW_WIDTH/2, 2*CST.VIEW_HEIGHT/3, "START");
-		this.startButton.onClick(()=>this.startGame());
+        this.nextButton = new TXT.Button(this, CST.VIEW_WIDTH/2, 2*CST.VIEW_HEIGHT/3, "NEXT");
+		this.nextButton.onClick(()=>this.nextScene());
         
 
         let keyObj = this.input.keyboard.addKeys('UP, DOWN, SPACE');  // Get key object
         keyObj['UP'].on('up', e=>this.incrementPlayers())
         keyObj['DOWN'].on('up', e=>this.decrementPlayers())
-        keyObj['SPACE'].on('up', e=>this.startGame())
+        keyObj['SPACE'].on('up', e=>this.nextScene())
 
     }
 
@@ -56,11 +56,11 @@ export default class MenuScene extends Phaser.Scene{
         this.numPlayerLabel.text = this.numPlayers
     }
 
-    startGame(){
+    nextScene(){
         this.input.keyboard.removeKey('UP')
         this.input.keyboard.removeKey('DOWN')
         this.input.keyboard.removeKey('SPACE')
 
-        this.scene.start(CST.SCENES.GAME, {numPlayers: this.numPlayers});		
+        this.scene.start(CST.SCENES.CHOOSE_PLAYER, {numPlayers: this.numPlayers});		
     }
 }

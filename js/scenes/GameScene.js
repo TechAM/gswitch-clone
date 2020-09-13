@@ -8,6 +8,7 @@ export default class GameScene extends Phaser.Scene{
     }
 
     init(data){
+        this.chosenPlayers = data.chosenPlayers.map(name => CST.SKINS.indexOf(name))
         this.numPlayers = data.numPlayers
     }
 
@@ -16,6 +17,11 @@ export default class GameScene extends Phaser.Scene{
         for(let i=0; i<this.numPlayers; i++){
             this.load.spritesheet(`man${i}`, `assets/sprites/man-${CST.SKINS[i]}.png`, {frameWidth: 100, frameHeight: 100})
         }
+
+        this.uniqueChosenPlayers = this.chosenPlayers.filter((value, index, self)=>self.indexOf(value)===index) 
+        // for(let i=0; i<uniqueChosenPlayers; i++){
+        //     this.load.spritesheet(`man${i}`, `assets/sprites/man-${uniqueChosenPlayers[i]}.png`, {frameWidth: 100, frameHeight: 100})
+        // }
 
         this.switchSound = this.sound.add("switch")
         this.finishSound = this.sound.add("finish")
@@ -53,14 +59,12 @@ export default class GameScene extends Phaser.Scene{
             collectible.body.setAllowGravity(false)
         }
 
-
-
         for(let i=1; i<=this.numPlayers; i++){
-            let newPlayer = new Player(this, CST.VIEW_WIDTH/5, i*CST.VIEW_HEIGHT/(this.numPlayers+1))
+            let newPlayer = new Player(this, CST.VIEW_WIDTH/5, i*CST.VIEW_HEIGHT/(this.numPlayers+1), this.chosenPlayers[i-1])
             this.players.push(newPlayer)
         }
 
-        for(let i=0; i<this.numPlayers; i++){
+        for(let i of this.uniqueChosenPlayers){
             this.anims.create({
                 key: `run${i}`,
                 frames: this.anims.generateFrameNumbers(`man${i}`, {start: 0, end: 3}),
@@ -74,7 +78,7 @@ export default class GameScene extends Phaser.Scene{
             player.addFinishOverlap(this.platformLayer)
             player.addCollectiblesOverlap(this.goodCollectibles, CST.COLLECTIBLE_TYPES.FAST)
             player.addCollectiblesOverlap(this.badCollectibles, CST.COLLECTIBLE_TYPES.SLOW)
-            player.animate(`run${player.id}`)
+            player.animate(`run${player.skinID}`)
         }
 
         //camera
