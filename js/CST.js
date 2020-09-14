@@ -25,6 +25,7 @@ export const SKINS = [
     'abdul',
     'richard',
     'fraser',
+    'christopher',
     'black',
     'red',
     'green',

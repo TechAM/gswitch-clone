@@ -10,8 +10,8 @@ export default class MenuScene extends Phaser.Scene{
         this.load.spritesheet("good", "assets/sprites/chicken.png", {frameWidth: 64, frameHeight: 64})
         this.load.spritesheet("bad", "assets/sprites/donut.png", {frameWidth: 64, frameHeight: 64})
 
-        this.load.spritesheet("platform", "assets/tiles/platformTiles.png", {frameWidth:32, frameHeight:32})
-        this.load.tilemapTiledJSON("map", "assets/tiles/tilemap.json")
+        this.load.spritesheet("platform", "assets/tiles/platformTiles1.png", {frameWidth:32, frameHeight:32})
+        this.load.tilemapTiledJSON("map", "assets/tiles/level1.json")
 
         this.load.audio("switch", "assets/sounds/swish.mp3")
         this.load.audio("finish", "assets/sounds/my_man.mp3")

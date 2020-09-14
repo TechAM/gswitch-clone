@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="31">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="32">
  <editorsettings>
-  <export target="tilemap.json" format="json"/>
+  <export target="level1.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="platform" tilewidth="32" tileheight="32" tilecount="4" columns="4">
-  <image source="platformTiles.png" width="128" height="32"/>
+  <image source="platformTiles1.png" width="128" height="32"/>
   <tile id="0">
    <properties>
     <property name="flipper" type="bool" value="false"/>
@@ -17,8 +17,8 @@
   </tile>
   <tile id="3" type="finish"/>
  </tileset>
- <tileset firstgid="5" name="bg" tilewidth="32" tileheight="32" tilecount="0" columns="1">
-  <image source="bgTiles.png" width="32" height="32"/>
+ <tileset firstgid="5" name="bg" tilewidth="32" tileheight="32" tilecount="0" columns="4">
+  <image source="bgTiles.png" width="128" height="32"/>
  </tileset>
  <layer id="1" name="world" width="100" height="24">
   <data encoding="csv">
@@ -48,11 +48,6 @@
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="players" visible="0">
-  <object id="17" name="player" x="200" y="384">
-   <point/>
-  </object>
- </objectgroup>
  <objectgroup id="6" name="collectibles">
   <object id="20" name="bad" x="729.333" y="314.667">
    <point/>

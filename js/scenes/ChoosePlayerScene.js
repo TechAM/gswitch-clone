@@ -16,7 +16,7 @@ export default class ChoosePlayerScene extends Phaser.Scene{
     create(){
         this.cameras.main.setBackgroundColor('#757575');
 
-        new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/10, "CHOOSE PLAYERS") //title
+        new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/10, "Choose player with up/down arrow keys then press space") //title
 
         let playersChosen = false
         let playerNumber = 1; //index of the player choosing
@@ -47,9 +47,8 @@ export default class ChoosePlayerScene extends Phaser.Scene{
                     new TXT.Text(this, 2*CST.VIEW_WIDTH/3, (1+playerNumber)*CST.VIEW_HEIGHT/11, this.currentPlayer.text)
                 }
 
-            }else{
-                this.startGame()
             }
+            if(playersChosen) this.startGame()
         })
 
 

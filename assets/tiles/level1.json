@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"tilemap.json"
+         "target":"level1.json"
         }
     },
  "height":24,
@@ -19,29 +19,6 @@
          "type":"tilelayer",
          "visible":true,
          "width":100,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":3,
-         "name":"players",
-         "objects":[
-                {
-                 "height":0,
-                 "id":17,
-                 "name":"player",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":200,
-                 "y":384
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -164,8 +141,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":7,
- "nextobjectid":31,
+ "nextlayerid":9,
+ "nextobjectid":32,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",
@@ -174,7 +151,7 @@
         {
          "columns":4,
          "firstgid":1,
-         "image":"platformTiles.png",
+         "image":"platformTiles1.png",
          "imageheight":32,
          "imagewidth":128,
          "margin":0,
@@ -209,11 +186,11 @@
          "tilewidth":32
         }, 
         {
-         "columns":1,
+         "columns":4,
          "firstgid":5,
          "image":"bgTiles.png",
          "imageheight":32,
-         "imagewidth":32,
+         "imagewidth":128,
          "margin":0,
          "name":"bg",
          "spacing":0,
