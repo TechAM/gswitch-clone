@@ -2,6 +2,11 @@ import * as CST from "../CST.js"
 import * as TXT from "../textClasses.js"
 
 export default class MenuScene extends Phaser.Scene{
+    init(data){
+        this.numPlayers = data.numPlayers
+        this.currentFastestTime = data.currentFastestTime ?? Infinity
+    }
+
     constructor(){
         super({key:CST.SCENES.MENU})
     }
@@ -9,9 +14,6 @@ export default class MenuScene extends Phaser.Scene{
     preload(){
         this.load.spritesheet("good", "assets/sprites/chicken.png", {frameWidth: 64, frameHeight: 64})
         this.load.spritesheet("bad", "assets/sprites/donut.png", {frameWidth: 64, frameHeight: 64})
-
-        this.load.spritesheet("platform", "assets/tiles/platformTiles1.png", {frameWidth:32, frameHeight:32})
-        this.load.tilemapTiledJSON("map", "assets/tiles/level1.json")
 
         this.load.audio("switch", "assets/sounds/swish.mp3")
         this.load.audio("finish", "assets/sounds/my_man.mp3")
@@ -21,8 +23,6 @@ export default class MenuScene extends Phaser.Scene{
         this.load.audio("short_beep", "assets/sounds/jeff_short.mp3")
         this.load.audio("long_beep", "assets/sounds/jeff.mp3")
         this.load.audio("background", "assets/sounds/embers.mp3")
-
-
     }
 
     create(){
@@ -32,7 +32,10 @@ export default class MenuScene extends Phaser.Scene{
 
         this.cameras.main.setBackgroundColor('#757575');
 
-        this.numPlayers = 1
+        if(this.currentFastestTime!=Infinity) new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/5, `Time to beat is ${this.currentFastestTime/1000}s`);        
+
+
+        this.numPlayers = this.numPlayers ?? 1
         new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/4, "Choose number of players with up/down arrow keys")
         this.numPlayerLabel = new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/2, this.numPlayers)
 
@@ -47,7 +50,6 @@ export default class MenuScene extends Phaser.Scene{
         keyObj['UP'].on('up', e=>this.incrementPlayers())
         keyObj['DOWN'].on('up', e=>this.decrementPlayers())
         keyObj['SPACE'].on('up', e=>this.nextScene())
-
     }
 
     incrementPlayers(){
@@ -67,6 +69,6 @@ export default class MenuScene extends Phaser.Scene{
         this.input.keyboard.removeKey('DOWN')
         this.input.keyboard.removeKey('SPACE')
 
-        this.scene.start(CST.SCENES.CHOOSE_PLAYER, {numPlayers: this.numPlayers});		
+        this.scene.start(CST.SCENES.CHOOSE_PLAYER, {numPlayers: this.numPlayers, currentFastestTime: this.currentFastestTime});		
     }
 }

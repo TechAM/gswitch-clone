@@ -3,6 +3,7 @@ import ChoosePlayerScene from './scenes/ChoosePlayerScene.js'
 import GameScene from "./scenes/GameScene.js"
 import GameoverScene from "./scenes/GameoverScene.js"
 import {VIEW_WIDTH, VIEW_HEIGHT, G} from './CST.js'
+import ChooseLevelScene from './scenes/ChooseLevelScene.js'
 
 let config = {
 	type: Phaser.AUTO,
@@ -21,7 +22,7 @@ let config = {
 			debug: false
 		}
 	},
-	scene: [MenuScene, ChoosePlayerScene, GameScene, GameoverScene],
+	scene: [MenuScene, ChoosePlayerScene, ChooseLevelScene, GameScene, GameoverScene],
 }
 
 let game = new Phaser.Game(config);

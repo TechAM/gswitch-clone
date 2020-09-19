@@ -2,9 +2,10 @@ import * as CST from "../CST.js"
 import * as TXT from "../textClasses.js"
 
 export default class GameOver extends Phaser.Scene{
-    init({finishOrder, players}){
+    init({finishOrder, players, currentFastestTime}){
         this.finishOrder = finishOrder
         this.players = players
+        this.currentFastestTime = currentFastestTime
     }
 
     constructor(){
@@ -16,7 +17,7 @@ export default class GameOver extends Phaser.Scene{
         let text = 'LEADERBOARD:\n\n\n'
         for(let i=0; i<this.finishOrder.length; i++){
             let player = this.players[this.finishOrder[i]]
-            text+= `${i+1}) Player ${player.id+1} (${CST.SKINS[player.skinID]})\n`
+            text+= `${i+1}) Player ${player.id+1} (${CST.SKINS[player.skinID]}) ${player.finishTime/1000} seconds\n`
         }
         for(let i=0; i<this.players.length; i++){  
             let player = this.players[i] 
@@ -32,7 +33,11 @@ export default class GameOver extends Phaser.Scene{
         let keyObj = this.input.keyboard.addKeys('SPACE');  // Get key object
         keyObj['SPACE'].on('up', e=>{
             this.input.keyboard.removeKey('SPACE')
-            this.scene.start(CST.SCENES.MENU)
+            let fastestTime = this.players.reduce((p1, p2)=>Math.max(p1.finishTime, p2.finishTime)).finishTime
+            this.scene.start(CST.SCENES.MENU, {
+                numPlayers: this.players.length,
+                currentFastestTime: (fastestTime < this.currentFastestTime ? fastestTime : this.currentFastestTime)
+            })
         })
     }
 }

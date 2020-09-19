@@ -1,25 +1,30 @@
 import * as CST from "../CST.js"
 import * as TXT from "../textClasses.js"
+import * as STYLES from '../styles.js'
 import Player from '../player.js'
 
 export default class GameScene extends Phaser.Scene{
+    init(data){
+        this.chosenPlayers = data.chosenPlayers.map(name => CST.SKINS.indexOf(name))
+        this.currentFastestTime = data.currentFastestTime
+        this.level = data.level
+    }
+
     constructor(){
         super({key:CST.SCENES.GAME})
     }
 
-    init(data){
-        this.chosenPlayers = data.chosenPlayers.map(name => CST.SKINS.indexOf(name))
-        // this.numPlayers = data.numPlayers
-    }
-
     preload(){
+        this.textures.remove("platform")
+        
+        this.load.spritesheet("platform", `assets/tiles/platformTiles${this.level}.png`, {frameWidth:32, frameHeight:32})
+        this.load.tilemapTiledJSON(`map${this.level}`, `assets/tiles/level${this.level}.json`)
+
         //TODO: make it so it loads in only the spritesheets required
         for(let i=0; i<CST.SKINS.length; i++){
             this.load.spritesheet(`man${i}`, `assets/sprites/man-${CST.SKINS[i]}.png`, {frameWidth: 100, frameHeight: 100})
         }
         this.uniqueChosenPlayers = this.chosenPlayers.filter((value, index, self)=>self.indexOf(value)===index) 
-        
-
 
         this.switchSound = this.sound.add("switch")
         this.finishSound = this.sound.add("finish")
@@ -40,11 +45,12 @@ export default class GameScene extends Phaser.Scene{
 
     create(){
         //map
-        this.map = this.make.tilemap({key:"map"}) //key is referencing the tilemapTiledJSON loaded in preload
+        this.map = this.make.tilemap({key:`map${this.level}`}) //key is referencing the tilemapTiledJSON loaded in preload
         let tileset = this.map.addTilesetImage("platform") //there is a tileset called "platform" in the Tiled editor
-        this.platformLayer = this.map.createDynamicLayer("world", tileset, 0, 0) //there is a layer called "world" in the Tiled editor
+        this.platformLayer = this.map.createStaticLayer("world", tileset, 0, 0) //there is a layer called "world" in the Tiled editor
         this.platformLayer.setCollisionByExclusion([-1, 4])
         
+
         //collectibles
         this.goodCollectibles = this.map.createFromObjects("collectibles", "good", {key:"good"})
         this.physics.world.enable(this.goodCollectibles)
@@ -60,7 +66,7 @@ export default class GameScene extends Phaser.Scene{
         for(let i=1; i<=this.chosenPlayers.length; i++){
             let newPlayer = new Player(this, CST.VIEW_WIDTH/5, i*CST.VIEW_HEIGHT/(this.chosenPlayers.length+1), this.chosenPlayers[i-1])
             this.players.push(newPlayer)
-            this[`player${i}Label`] = new TXT.Text(this, CST.VIEW_WIDTH/6, i*CST.VIEW_HEIGHT/(this.chosenPlayers.length+1), i)
+            this[`player${i}Label`] = new TXT.Text(this, CST.VIEW_WIDTH/7, i*CST.VIEW_HEIGHT/(this.chosenPlayers.length+1), i, STYLES.PLAYER_CONTROL)
         }
 
         for(let i of this.uniqueChosenPlayers){
@@ -88,7 +94,6 @@ export default class GameScene extends Phaser.Scene{
         this.keys = ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE']
         this.keyObj = this.input.keyboard.addKeys(this.keys.join(', '));  // Get key object
         for(let i=0; i<this.chosenPlayers.length; i++){
-            console.log(i)
             this.keyObj[this.keys[i]].on('up', e=>{
                 if(!this.players[i].dead && !this.players[i].finished){
                     this.players[i].gSwitch()
@@ -100,39 +105,60 @@ export default class GameScene extends Phaser.Scene{
         for(let player of this.players){
             player.sprite.body.moves = false
         }
-        let time = 3
-        this.timerLabel = new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/2, time)
-        let timer = setInterval(e=>{
-            if(time>=1){
-                this.timerLabel.text = time
+
+        this.gameTime = 0
+        //TODO: fix label to camera
+        this.gameTimerLabel = new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/10, '')
+        this.gameTimerLabel.setScrollFactor(0)
+
+        let countDownTime = 3
+        this.counterTimerLabel = new TXT.Text(this, CST.VIEW_WIDTH/2, CST.VIEW_HEIGHT/10, countDownTime, STYLES.COUNTDOWN_TEXT_STYLE)
+
+        let startTimer = setInterval(e=>{
+            if(countDownTime>=1){
+                this.counterTimerLabel.text = countDownTime
                 this.shortBeepSound.play()
-                time-=1
-            }else if(time==0) {
+                countDownTime-=1
+            }else if(countDownTime==0) {
                 this.longBeepSound.play()
-                this.timerLabel.text = "GO"
+                this.counterTimerLabel.text = "GO"
                 for(let player of this.players){
                     player.sprite.body.moves = true
-                }
+                }                
                 setTimeout(()=>{
-                    this.timerLabel.text=''
-                    clearInterval(timer)
+                    this.counterTimerLabel.text=''
+                    clearInterval(startTimer)
                 }, 200)
+
+                let start = new Date().getTime();
+                this.gameTimer = setInterval(()=>{
+                    let now = new Date().getTime();
+                    this.gameTime = now-start
+                    this.gameTimerLabel.text = this.gameTime/1000
+                },10);
             }
         }, 1000)
+
 
     }
 
     endGame(){
+        clearInterval(this.gameTimer)
+
         //to fix the bug where event was triggered twice for some reason
         for(let key of this.keys){
             this.input.keyboard.removeKey(key)
         }
-        this.scene.start(CST.SCENES.GAME_OVER, {finishOrder: this.finishOrder, players: this.players})
+        this.scene.start(CST.SCENES.GAME_OVER, {
+            finishOrder: this.finishOrder,
+            players: this.players,
+            currentFastestTime: this.currentFastestTime
+        })
     }
 
-    update(){
+    update(e){
         for(let player of this.players){
-            player.update(this.cameras.main.scrollX)
+            player.update(this.cameras.main.scrollX, this.gameTime)
         }
         if(Player.numDead+Player.numFinished==this.chosenPlayers.length) {
             this.endGame()

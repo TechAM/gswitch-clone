@@ -4,6 +4,7 @@ import * as TXT from "../textClasses.js"
 export default class ChoosePlayerScene extends Phaser.Scene{
     init(data){
         this.numPlayers = data.numPlayers
+        this.currentFastestTime = data.currentFastestTime
     }
     constructor(){
         super({key: CST.SCENES.CHOOSE_PLAYER})
@@ -24,7 +25,8 @@ export default class ChoosePlayerScene extends Phaser.Scene{
         let currentPlayerIndex = 0 //index of the player shown in the list of available players
         this.currentPlayer = new TXT.Text(this, 2*CST.VIEW_WIDTH/3, (3+playerNumber-1)*CST.VIEW_HEIGHT/11, CST.SKINS[currentPlayerIndex])
 
-        let keyObj = this.input.keyboard.addKeys('UP, DOWN, SPACE');  // Get key object
+        
+        let keyObj = this.input.keyboard.addKeys('UP, DOWN, SPACE');
         keyObj['UP'].on('up', e=>{
             currentPlayerIndex = (CST.SKINS.length+currentPlayerIndex + 1)%CST.SKINS.length
             this.currentPlayer.text=CST.SKINS[currentPlayerIndex]
@@ -48,19 +50,19 @@ export default class ChoosePlayerScene extends Phaser.Scene{
                 }
 
             }
-            if(playersChosen) this.startGame()
+            if(playersChosen) this.nextScene()
         })
 
 
-        new TXT.Text(this, CST.VIEW_WIDTH/2, 4*CST.VIEW_HEIGHT/5, "Press spacebar to start");
+        new TXT.Text(this, CST.VIEW_WIDTH/2, 4*CST.VIEW_HEIGHT/5, "Press spacebar to continue");
     }
 
     
-    startGame(){
+    nextScene(){
         this.input.keyboard.removeKey('UP')
         this.input.keyboard.removeKey('DOWN')
         this.input.keyboard.removeKey('SPACE')
 
-        this.scene.start(CST.SCENES.GAME, {chosenPlayers: this.chosenPlayers});		
+        this.scene.start(CST.SCENES.CHOOSE_LEVEL, {chosenPlayers: this.chosenPlayers, currentFastestTime: this.currentFastestTime});		
     }
 }

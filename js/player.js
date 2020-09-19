@@ -32,9 +32,11 @@ export default class Player {
             if(!this.finished){    
                 if(tile.index == 4){
                     this.finished = true
+                    this.finishTime = this.scene.gameTime
                     this.scene.finishSound.play()
                     Player.numFinished += 1
                     this.scene.finishOrder.push(this.id)
+
                 }
             }
         })
