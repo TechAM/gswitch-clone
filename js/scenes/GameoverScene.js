@@ -2,10 +2,11 @@ import * as CST from "../CST.js"
 import * as TXT from "../textClasses.js"
 
 export default class GameOver extends Phaser.Scene{
-    init({finishOrder, players, currentFastestTime}){
+    init({finishOrder, players, currentFastestTimes, level}){
         this.finishOrder = finishOrder
         this.players = players
-        this.currentFastestTime = currentFastestTime
+        this.currentFastestTimes = currentFastestTimes,
+        this.level = level
     }
 
     constructor(){
@@ -34,9 +35,12 @@ export default class GameOver extends Phaser.Scene{
         keyObj['SPACE'].on('up', e=>{
             this.input.keyboard.removeKey('SPACE')
             let fastestTime = this.players.reduce((p1, p2)=>Math.max(p1.finishTime, p2.finishTime)).finishTime
+            this.currentFastestTimes[this.level-1] = (fastestTime < this.currentFastestTimes[this.level-1] ? fastestTime : this.currentFastestTimes[this.level-1])
+            
             this.scene.start(CST.SCENES.MENU, {
                 numPlayers: this.players.length,
-                currentFastestTime: (fastestTime < this.currentFastestTime ? fastestTime : this.currentFastestTime)
+                currentFastestTimes: this.currentFastestTimes,
+                level: this.level
             })
         })
     }

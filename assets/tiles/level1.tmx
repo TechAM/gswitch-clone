@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="43">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="54">
  <editorsettings>
   <export target="level1.json" format="json"/>
  </editorsettings>
@@ -49,61 +49,85 @@
 </data>
  </layer>
  <objectgroup id="6" name="collectibles">
-  <object id="20" name="bad" x="729.333" y="314.667">
+  <object id="20" name="slow" x="729.333" y="314.667">
    <point/>
   </object>
-  <object id="21" name="good" x="412" y="653.333">
+  <object id="21" name="fast" x="404" y="595.333">
    <point/>
   </object>
-  <object id="23" name="good" x="984" y="176">
+  <object id="23" name="fast" x="984" y="176">
    <point/>
   </object>
-  <object id="24" name="bad" x="1166.67" y="545.333">
+  <object id="24" name="slow" x="1166.67" y="545.333">
    <point/>
   </object>
-  <object id="25" name="bad" x="1462.67" y="173.333">
+  <object id="25" name="slow" x="1462.67" y="173.333">
    <point/>
   </object>
-  <object id="27" name="good" x="1913.33" y="160">
+  <object id="27" name="fast" x="1913.33" y="160">
    <point/>
   </object>
-  <object id="28" name="good" x="1698.67" y="648">
+  <object id="28" name="fast" x="1698.67" y="648">
    <point/>
   </object>
-  <object id="29" name="bad" x="2314.67" y="478.667">
+  <object id="29" name="slow" x="2314.67" y="478.667">
    <point/>
   </object>
-  <object id="30" name="good" x="2628" y="306.667">
+  <object id="30" name="fast" x="2628" y="306.667">
    <point/>
   </object>
-  <object id="32" name="good" x="438" y="90">
+  <object id="32" name="fast" x="414" y="78">
    <point/>
   </object>
-  <object id="33" name="bad" x="798" y="634">
+  <object id="33" name="slow" x="798" y="634">
    <point/>
   </object>
-  <object id="34" name="bad" x="1394" y="690">
+  <object id="34" name="slow" x="1394" y="690">
    <point/>
   </object>
-  <object id="35" name="bad" x="1918" y="580">
+  <object id="35" name="slow" x="1918" y="580">
    <point/>
   </object>
-  <object id="36" name="good" x="2208" y="132">
+  <object id="36" name="fast" x="2208" y="132">
    <point/>
   </object>
-  <object id="38" x="2944" y="692">
+  <object id="38" name="fast" x="2944" y="692">
    <point/>
   </object>
-  <object id="39" x="2930" y="78">
+  <object id="39" name="fast" x="2930" y="78">
    <point/>
   </object>
-  <object id="40" name="bad" x="2092" y="376">
+  <object id="40" name="slow" x="2092" y="376">
    <point/>
   </object>
-  <object id="41" name="bad" x="2754" y="512">
+  <object id="41" name="slow" x="2754" y="512">
    <point/>
   </object>
-  <object id="42" name="good" x="424" y="364">
+  <object id="42" name="fast" x="502" y="362">
+   <point/>
+  </object>
+  <object id="43" name="fast" x="1102" y="700">
+   <point/>
+  </object>
+  <object id="47" name="disable" x="418" y="472">
+   <point/>
+  </object>
+  <object id="48" name="fast" x="1260" y="34">
+   <point/>
+  </object>
+  <object id="49" name="disable" x="1156" y="258">
+   <point/>
+  </object>
+  <object id="50" name="disable" x="1528" y="462">
+   <point/>
+  </object>
+  <object id="51" name="disable" x="2128" y="666">
+   <point/>
+  </object>
+  <object id="52" name="disable" x="412" y="152">
+   <point/>
+  </object>
+  <object id="53" name="disable" x="404" y="712">
    <point/>
   </object>
  </objectgroup>

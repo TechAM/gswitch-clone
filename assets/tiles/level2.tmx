@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="200" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="64">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="200" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="70">
  <editorsettings>
   <export target="level2.json" format="json"/>
  </editorsettings>
@@ -35,166 +35,184 @@
 </data>
  </layer>
  <objectgroup id="3" name="collectibles">
-  <object id="5" name="good" x="793.939" y="190.909">
+  <object id="5" name="fast" x="793.939" y="190.909">
    <point/>
   </object>
-  <object id="6" name="bad" x="1293.94" y="487.879">
+  <object id="6" name="slow" x="1293.94" y="487.879">
    <point/>
   </object>
-  <object id="7" name="good" x="1954.55" y="57.5758">
+  <object id="7" name="fast" x="1954.55" y="57.5758">
    <point/>
   </object>
-  <object id="8" name="good" x="2324.24" y="687.879">
+  <object id="8" name="fast" x="2324.24" y="687.879">
    <point/>
   </object>
-  <object id="9" name="bad" x="2581.82" y="466.667">
+  <object id="9" name="slow" x="2581.82" y="466.667">
    <point/>
   </object>
-  <object id="10" name="good" x="4384.85" y="36.3636">
+  <object id="10" name="fast" x="4384.85" y="36.3636">
    <point/>
   </object>
-  <object id="11" name="good" x="5724.24" y="39.3939">
+  <object id="11" name="fast" x="5724.24" y="39.3939">
    <point/>
   </object>
-  <object id="12" name="bad" x="5212.12" y="742.424">
+  <object id="12" name="slow" x="5212.12" y="742.424">
    <point/>
   </object>
-  <object id="13" name="good" x="3839.39" y="384.848">
+  <object id="13" name="fast" x="3839.39" y="384.848">
    <point/>
   </object>
-  <object id="15" name="bad" x="3939.39" y="375.758">
+  <object id="15" name="slow" x="3939.39" y="375.758">
    <point/>
   </object>
-  <object id="16" name="good" x="600" y="315.152">
+  <object id="16" name="fast" x="600" y="315.152">
    <point/>
   </object>
-  <object id="17" name="good" x="869.697" y="536.364">
+  <object id="17" name="fast" x="869.697" y="536.364">
    <point/>
   </object>
-  <object id="20" name="good" x="1012.12" y="260.606">
+  <object id="20" name="fast" x="1012.12" y="260.606">
    <point/>
   </object>
-  <object id="21" name="good" x="1121.21" y="651.515">
+  <object id="21" name="fast" x="1121.21" y="651.515">
    <point/>
   </object>
-  <object id="22" name="bad" x="1224.24" y="187.879">
+  <object id="22" name="slow" x="1224.24" y="187.879">
    <point/>
   </object>
-  <object id="23" name="good" x="1460.61" y="575.758">
+  <object id="23" name="fast" x="1460.61" y="575.758">
    <point/>
   </object>
-  <object id="24" name="good" x="1700" y="354.545">
+  <object id="24" name="fast" x="1700" y="354.545">
    <point/>
   </object>
-  <object id="25" name="good" x="1975.76" y="475.758">
+  <object id="25" name="fast" x="1975.76" y="475.758">
    <point/>
   </object>
-  <object id="26" name="bad" x="1812.12" y="696.97">
+  <object id="26" name="slow" x="1812.12" y="696.97">
    <point/>
   </object>
-  <object id="27" name="bad" x="2269.7" y="81.8182">
+  <object id="27" name="slow" x="2269.7" y="81.8182">
    <point/>
   </object>
-  <object id="28" name="bad" x="2545.45" y="636.364">
+  <object id="28" name="slow" x="2545.45" y="636.364">
    <point/>
   </object>
-  <object id="29" name="bad" x="2206.06" y="336.364">
+  <object id="29" name="slow" x="2206.06" y="336.364">
    <point/>
   </object>
-  <object id="30" name="bad" x="2751.52" y="69.697">
+  <object id="30" name="slow" x="2751.52" y="69.697">
    <point/>
   </object>
-  <object id="31" name="bad" x="2987.88" y="339.394">
+  <object id="31" name="slow" x="2987.88" y="339.394">
    <point/>
   </object>
-  <object id="32" name="good" x="2787.88" y="712.121">
+  <object id="32" name="fast" x="2787.88" y="712.121">
    <point/>
   </object>
-  <object id="33" name="good" x="3139.39" y="81.8182">
+  <object id="33" name="fast" x="3139.39" y="81.8182">
    <point/>
   </object>
-  <object id="34" name="good" x="3854.55" y="733.333">
+  <object id="34" name="fast" x="3854.55" y="733.333">
    <point/>
   </object>
-  <object id="35" name="good" x="3866.67" y="48.4848">
+  <object id="35" name="fast" x="3866.67" y="48.4848">
    <point/>
   </object>
-  <object id="37" name="bad" x="4445.45" y="739.394">
+  <object id="37" name="slow" x="4445.45" y="739.394">
    <point/>
   </object>
-  <object id="38" name="good" x="4700" y="112.121">
+  <object id="38" name="fast" x="4700" y="112.121">
    <point/>
   </object>
-  <object id="39" name="good" x="4745.45" y="563.636">
+  <object id="39" name="fast" x="4745.45" y="563.636">
    <point/>
   </object>
-  <object id="40" name="bad" x="5124.24" y="78.7879">
+  <object id="40" name="slow" x="5124.24" y="78.7879">
    <point/>
   </object>
-  <object id="41" name="good" x="5472.73" y="248.485">
+  <object id="41" name="fast" x="5472.73" y="248.485">
    <point/>
   </object>
-  <object id="42" name="bad" x="5612.12" y="563.636">
+  <object id="42" name="slow" x="5612.12" y="563.636">
    <point/>
   </object>
-  <object id="43" name="good" x="5996.97" y="263.636">
+  <object id="43" name="fast" x="5996.97" y="263.636">
    <point/>
   </object>
-  <object id="44" name="good" x="5996.97" y="581.818">
+  <object id="44" name="fast" x="5996.97" y="581.818">
    <point/>
   </object>
-  <object id="45" name="bad" x="3430.3" y="290.909">
+  <object id="45" name="slow" x="3430.3" y="290.909">
    <point/>
   </object>
-  <object id="46" name="good" x="3575.76" y="572.727">
+  <object id="46" name="fast" x="3575.76" y="572.727">
    <point/>
   </object>
-  <object id="47" name="good" x="4269.7" y="312.121">
+  <object id="47" name="fast" x="4269.7" y="312.121">
    <point/>
   </object>
-  <object id="48" name="bad" x="4212.12" y="533.333">
+  <object id="48" name="slow" x="4212.12" y="533.333">
    <point/>
   </object>
-  <object id="49" name="bad" x="651.515" y="593.939">
+  <object id="49" name="slow" x="651.515" y="593.939">
    <point/>
   </object>
-  <object id="50" name="bad" x="766.667" y="330.303">
+  <object id="50" name="slow" x="766.667" y="330.303">
    <point/>
   </object>
-  <object id="51" name="bad" x="975.758" y="409.091">
+  <object id="51" name="slow" x="975.758" y="409.091">
    <point/>
   </object>
-  <object id="53" name="good" x="757.576" y="666.667">
+  <object id="53" name="fast" x="757.576" y="666.667">
    <point/>
   </object>
-  <object id="54" name="bad" x="627.273" y="100">
+  <object id="54" name="slow" x="627.273" y="100">
    <point/>
   </object>
-  <object id="55" name="bad" x="760.606" y="454.545">
+  <object id="55" name="slow" x="760.606" y="454.545">
    <point/>
   </object>
-  <object id="56" name="good" x="1381.82" y="266.667">
+  <object id="56" name="fast" x="1381.82" y="266.667">
    <point/>
   </object>
-  <object id="57" name="bad" x="1678.79" y="130.303">
+  <object id="57" name="slow" x="1678.79" y="130.303">
    <point/>
   </object>
-  <object id="58" name="bad" x="3142.42" y="663.636">
+  <object id="58" name="slow" x="3142.42" y="663.636">
    <point/>
   </object>
-  <object id="59" name="good" x="4903.03" y="275.758">
+  <object id="59" name="fast" x="4903.03" y="275.758">
    <point/>
   </object>
-  <object id="60" name="bad" x="5154.55" y="318.182">
+  <object id="60" name="slow" x="5154.55" y="318.182">
    <point/>
   </object>
-  <object id="61" name="good" x="5300" y="512.121">
+  <object id="61" name="fast" x="5300" y="512.121">
    <point/>
   </object>
-  <object id="62" name="bad" x="4884.85" y="681.818">
+  <object id="62" name="slow" x="4884.85" y="681.818">
    <point/>
   </object>
-  <object id="63" name="good" x="2781.82" y="321.212">
+  <object id="63" name="fast" x="2781.82" y="321.212">
+   <point/>
+  </object>
+  <object id="64" name="disable" x="1967" y="317">
+   <point/>
+  </object>
+  <object id="65" name="disable" x="2361" y="469">
+   <point/>
+  </object>
+  <object id="66" name="disable" x="3566" y="377">
+   <point/>
+  </object>
+  <object id="67" name="disable" x="1107" y="183">
+   <point/>
+  </object>
+  <object id="68" name="disable" x="1121" y="536">
+   <point/>
+  </object>
+  <object id="69" name="disable" x="5998" y="384">
    <point/>
   </object>
  </objectgroup>

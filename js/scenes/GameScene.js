@@ -6,7 +6,7 @@ import Player from '../player.js'
 export default class GameScene extends Phaser.Scene{
     init(data){
         this.chosenPlayers = data.chosenPlayers.map(name => CST.SKINS.indexOf(name))
-        this.currentFastestTime = data.currentFastestTime
+        this.currentFastestTimes = data.currentFastestTimes
         this.level = data.level
     }
 
@@ -31,6 +31,7 @@ export default class GameScene extends Phaser.Scene{
         this.deadSound = this.sound.add("dead")
         this.boostSound = this.sound.add("boost")
         this.slowSound = this.sound.add("slow")
+        this.disableSound = this.sound.add("disable")
         this.shortBeepSound = this.sound.add("short_beep")
         this.longBeepSound = this.sound.add("long_beep")
 
@@ -52,16 +53,22 @@ export default class GameScene extends Phaser.Scene{
         
 
         //collectibles
-        this.goodCollectibles = this.map.createFromObjects("collectibles", "good", {key:"good"})
-        this.physics.world.enable(this.goodCollectibles)
-        for(let collectible of this.goodCollectibles){
+        this.fastCollectibles = this.map.createFromObjects("collectibles", "fast", {key:"fast"})
+        this.physics.world.enable(this.fastCollectibles)
+        for(let collectible of this.fastCollectibles){
             collectible.body.setAllowGravity(false)
         }
-        this.badCollectibles = this.map.createFromObjects("collectibles", "bad", {key:"bad"})
-        this.physics.world.enable(this.badCollectibles)
-        for(let collectible of this.badCollectibles){
+        this.slowCollectibles = this.map.createFromObjects("collectibles", "slow", {key:"slow"})
+        this.physics.world.enable(this.slowCollectibles)
+        for(let collectible of this.slowCollectibles){
             collectible.body.setAllowGravity(false)
         }
+        this.disableCollectibles = this.map.createFromObjects("collectibles", "disable", {key:"disable"})
+        this.physics.world.enable(this.disableCollectibles)
+        for(let collectible of this.disableCollectibles){
+            collectible.body.setAllowGravity(false)
+        }
+
 
         for(let i=1; i<=this.chosenPlayers.length; i++){
             let newPlayer = new Player(this, CST.VIEW_WIDTH/5, i*CST.VIEW_HEIGHT/(this.chosenPlayers.length+1), this.chosenPlayers[i-1])
@@ -81,8 +88,9 @@ export default class GameScene extends Phaser.Scene{
         for(let player of this.players){
             player.addPlatformCollider(this.platformLayer)
             player.addFinishOverlap(this.platformLayer)
-            player.addCollectiblesOverlap(this.goodCollectibles, CST.COLLECTIBLE_TYPES.FAST)
-            player.addCollectiblesOverlap(this.badCollectibles, CST.COLLECTIBLE_TYPES.SLOW)
+            player.addCollectiblesOverlap(this.fastCollectibles, CST.COLLECTIBLE_TYPES.FAST)
+            player.addCollectiblesOverlap(this.slowCollectibles, CST.COLLECTIBLE_TYPES.SLOW)
+            player.addCollectiblesOverlap(this.disableCollectibles, CST.COLLECTIBLE_TYPES.DISABLE)
             player.animate(`run${player.skinID}`)
         }
 
@@ -139,7 +147,6 @@ export default class GameScene extends Phaser.Scene{
             }
         }, 1000)
 
-
     }
 
     endGame(){
@@ -152,7 +159,8 @@ export default class GameScene extends Phaser.Scene{
         this.scene.start(CST.SCENES.GAME_OVER, {
             finishOrder: this.finishOrder,
             players: this.players,
-            currentFastestTime: this.currentFastestTime
+            currentFastestTimes: this.currentFastestTimes,
+            level: this.level
         })
     }
 

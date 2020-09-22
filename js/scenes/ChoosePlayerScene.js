@@ -4,7 +4,8 @@ import * as TXT from "../textClasses.js"
 export default class ChoosePlayerScene extends Phaser.Scene{
     init(data){
         this.numPlayers = data.numPlayers
-        this.currentFastestTime = data.currentFastestTime
+        this.currentFastestTimes = data.currentFastestTimes
+        this.level = data.level
     }
     constructor(){
         super({key: CST.SCENES.CHOOSE_PLAYER})
@@ -63,6 +64,6 @@ export default class ChoosePlayerScene extends Phaser.Scene{
         this.input.keyboard.removeKey('DOWN')
         this.input.keyboard.removeKey('SPACE')
 
-        this.scene.start(CST.SCENES.CHOOSE_LEVEL, {chosenPlayers: this.chosenPlayers, currentFastestTime: this.currentFastestTime});		
+        this.scene.start(CST.SCENES.CHOOSE_LEVEL, {chosenPlayers: this.chosenPlayers, currentFastestTimes: this.currentFastestTimes, level:this.level});		
     }
 }

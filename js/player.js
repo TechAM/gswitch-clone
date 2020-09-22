@@ -10,7 +10,7 @@ export default class Player {
         this.velocity = CST.X_VEL
         this.setupSprite(x, y)
 
-
+        this.gswitchEnabled = true
         this.finished = false
         this.dead = false
     }
@@ -53,16 +53,22 @@ export default class Player {
                 case CST.COLLECTIBLE_TYPES.SLOW:
                     this.velocity-=30
                     this.scene.slowSound.play()
-                    break                
+                    break   
+                case CST.COLLECTIBLE_TYPES.DISABLE:
+                    this.gswitchEnabled = false
+                    this.scene.disableSound.play()
+                    setTimeout(()=>this.gswitchEnabled = true, 1000)
             }
             this.sprite.setVelocityX(this.velocity)
 
         })
     }
     gSwitch(){
-		this.scene.switchSound.play();
-        this.sprite.flipY = !this.sprite.flipY
-        this.sprite.body.gravity.y*=-1
+        if(this.gswitchEnabled){
+		    this.scene.switchSound.play();
+            this.sprite.flipY = !this.sprite.flipY
+            this.sprite.body.gravity.y*=-1
+        }
     }
 
 	update(scrollX) {
